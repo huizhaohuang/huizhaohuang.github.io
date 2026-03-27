@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Can an open encyclopedia stay neutral in a conflicted world? &#8212; Chai Alliance &middot; DataFest 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+/* ── Reset ── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Lora',Georgia,serif;background:#fff;color:#1a1a1a;overflow-x:hidden}
+
+/* ── Progress bar (egg_chicken.html) ── */
+#prog{position:fixed;top:0;left:0;height:3px;background:#c1121f;z-index:9999;width:0%;transition:width .2s}
+
+/* ── Chai brand (egg_chicken.html) ── */
+.chai-brand{position:fixed;top:18px;left:20px;z-index:1000;display:flex;align-items:center;gap:9px}
+.chai-brand-name{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#c1121f;line-height:1.2}
+.chai-brand-sub{font-family:'Inter',sans-serif;font-size:9px;letter-spacing:1px;color:#aaa;text-transform:uppercase}
+
+/* ── Hertie logo ── */
+.hertie-logo{position:fixed;top:21px;right:20px;z-index:1000;height:40px;width:auto;opacity:.9}
+
+/* ── Steam (egg_chicken.html) ── */
+@keyframes s-rise{0%{transform:translateY(0) scaleX(1);opacity:0}15%{opacity:.85}100%{transform:translateY(-20px) scaleX(.5);opacity:0}}
+.sp{fill:none;stroke:#c1121f;stroke-width:2;stroke-linecap:round}
+.s1{animation:s-rise 2.4s ease-in-out infinite 0s;transform-origin:50% 100%}
+.s2{animation:s-rise 2.4s ease-in-out infinite .8s;transform-origin:50% 100%}
+.s3{animation:s-rise 2.4s ease-in-out infinite 1.6s;transform-origin:50% 100%}
+
+/* ── HERO (egg_chicken.html) ── */
+#hero{height:100vh;display:flex;align-items:center;justify-content:center;padding:0 7%;position:relative;background:#fff}
+.hero-left{flex:0 0 46%;padding-right:40px}
+.hero-eyebrow{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:#c1121f;margin-bottom:18px}
+.hero-title{font-family:'Inter',sans-serif;font-size:clamp(44px,5.8vw,76px);font-weight:900;line-height:1.0;color:#1a1a1a;margin-bottom:22px;text-align:center}
+.hero-title .red{color:#c1121f}
+.hero-sub{font-family:'Lora',serif;font-size:clamp(16px,1.7vw,21px);color:#555;line-height:1.65;font-style:italic;margin-bottom:36px;text-align:center}
+.scroll-cue{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#bbb;display:flex;align-items:center;gap:8px;animation:cue 2.2s ease-in-out infinite}
+@keyframes cue{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+.hero-right{flex:1;display:flex;align-items:center;justify-content:center}
+
+/* ── Hero script contrast boxes ── */
+.hero-lang-row{display:flex;align-items:center;justify-content:center;gap:20px}
+.hero-vs{font-family:'Inter',sans-serif;font-size:22px;font-weight:900;color:#c9c9c9}
+.hero-script-box{min-width:130px;height:70px;border:2px dashed #222;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:6px 10px}
+.hero-script-box.ar{border-color:#c1121f}
+.hero-script-box.en{border-color:#1d6fa4}
+.hero-script-ar{font-family:'Lora',serif;font-size:32px;font-weight:700;direction:rtl;color:#c1121f}
+.hero-script-en{font-family:'Inter',sans-serif;font-size:30px;font-weight:800;color:#1d6fa4}
+.hero-lang-sub{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-top:8px}
+.hero-caption{font-family:'Lora',serif;font-size:15px;font-style:italic;color:#777;text-align:center;margin-top:14px}
+
+/* ── Lang badge (compact script box — used in panels) ── */
+.lang-badge{display:inline-flex;align-items:center;justify-content:center;border:2px dashed;border-radius:6px;padding:3px 10px;min-width:80px;margin-bottom:4px}
+.lang-badge.ar{border-color:#c1121f}
+.lang-badge.en{border-color:#1d6fa4}
+.lang-badge .script-ar{font-family:'Lora',serif;font-size:17px;font-weight:700;direction:rtl;color:#c1121f;line-height:1.5}
+.lang-badge .script-en{font-family:'Inter',sans-serif;font-size:17px;font-weight:800;color:#1d6fa4;line-height:1.5}
+.lang-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.lang-label.ar{color:#c1121f}
+.lang-label.en{color:#1d6fa4}
+
+/* ── STORY (egg_chicken.html) ── */
+.story{display:flex;align-items:flex-start;max-width:1380px;margin:0 auto;padding:0 3%}
+.story.story-reverse{flex-direction:row-reverse}
+.story-text{width:42%;padding:0 5% 0 3%;flex-shrink:0}
+.story-reverse .story-text{padding:0 3% 0 5%}
+.story-vis{width:54%;position:sticky;top:0;height:100vh;flex-shrink:0;overflow:hidden}
+/* Step 4 gets a wider visual column for chart readability */
+.story-v4-wide .story-text{width:36%}
+.story-v4-wide .story-vis{width:62%}
+
+/* ── TEXT STEPS (egg_chicken.html) ── */
+.step{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:70px 0;opacity:.28;transition:opacity .5s ease}
+.step.on{opacity:1}
+.step[data-step="s0"]{justify-content:flex-start;padding-top:150px}
+.step-tag{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#c1121f;margin-bottom:14px}
+.step-head{font-family:'Inter',sans-serif;font-size:clamp(22px,2.6vw,36px);font-weight:800;line-height:1.15;color:#1a1a1a;margin-bottom:14px}
+.step-body{font-family:'Lora',serif;font-size:clamp(15px,1.45vw,19px);line-height:1.72;color:#444;max-width:370px}
+.step-body em{color:#1a1a1a;font-style:italic}
+.red{color:#c1121f;font-style:normal}
+
+/* ── VISUAL PANELS (egg_chicken.html) ── */
+.vstk{position:relative;width:100%;height:100%}
+.vp{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:44px 36px;opacity:1;pointer-events:auto}
+#v0{justify-content:flex-start;padding-top:150px}
+
+/* ── V1: Stat cards ── */
+.stat-cards{display:flex;gap:14px;width:100%}
+.stat-card{flex:1;border-radius:12px;border:1px solid #ebebeb;overflow:hidden;border-top-width:4px;border-top-style:solid}
+.stat-card.ar{border-top-color:#c1121f}
+.stat-card.en{border-top-color:#1d6fa4}
+.stat-card-head{padding:12px 14px 8px;background:#fafafa;border-bottom:1px solid #f0f0f0;display:flex;flex-direction:column;align-items:flex-start;gap:3px}
+.stat-card-wiki{font-family:'Inter',sans-serif;font-size:9.5px;color:#999;letter-spacing:.3px}
+.stat-tbl{width:100%;border-collapse:collapse}
+.stat-tbl tr{border-bottom:1px solid #f5f5f5}
+.stat-tbl tr:last-child{border-bottom:none}
+.stat-tbl .sk{font-family:'Inter',sans-serif;font-size:.76rem;color:#999;padding:8px 12px;line-height:1.3;width:62%}
+.stat-tbl .sv{font-family:'Inter',sans-serif;font-size:.88rem;font-weight:700;color:#1a1a1a;padding:8px 12px 8px 0;white-space:nowrap}
+.stat-tbl .sv.ar{color:#c1121f}
+.stat-tbl .sv.en{color:#1d6fa4}
+.stat-tbl tr.hl{background:rgba(193,18,31,.04)}
+.stat-tbl tr.hl-en{background:rgba(29,111,164,.04)}
+
+/* ── V2: Storyboard narrative ── */
+.sb-wrap{width:100%;display:flex;flex-direction:column;gap:8px}
+.sb-top-row,.sb-bot-row{display:flex;align-items:stretch;gap:0}
+.sb-panel{flex:1;border-radius:9px;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+.sb-panel.sb-neutral{background:#f6f6f6;border:1.5px solid #d0d0d0}
+.sb-panel.sb-ar{background:#fff0f0;border:1.5px solid #c1121f}
+.sb-panel.sb-en{background:#f0f6ff;border:1.5px solid #1d6fa4}
+.sb-arrow-h{width:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#bbb}
+.sb-transition{display:flex;align-items:center;gap:10px;padding:2px 4px}
+.sb-arrow-down{font-size:1.2rem;color:#bbb;flex-shrink:0;margin-left:auto;padding-right:8px}
+.sb-transition-label{font-family:'Lora',serif;font-size:.77rem;font-style:italic;color:#aaa;line-height:1.35;flex:1;border-left:2px solid #eee;padding-left:10px}
+.sb-mid{width:70px;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.sb-war{font-family:'Lora',serif;font-size:.95rem;font-weight:700;font-style:italic;color:#c1121f;text-align:center;line-height:1.55}
+.sb-icon{font-size:1.25rem;line-height:1}
+.sb-label{font-family:'Inter',sans-serif;font-size:8px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;color:#1a1a1a;margin-top:2px}
+.sb-stat{font-family:'Inter',sans-serif;font-size:.84rem;font-weight:800;color:#1a1a1a;margin-top:3px}
+.sb-sub{font-family:'Lora',serif;font-size:.75rem;color:#666;line-height:1.4;font-style:italic}
+.sb-caption{font-family:'Lora',serif;font-size:.79rem;color:#999;font-style:italic;text-align:center;padding-top:4px}
+
+/* ── Chart helpers ── */
+.chart-title{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888;text-align:center;margin-bottom:10px}
+.chart-wrap{width:100%;height:320px;position:relative}
+.chart-note{font-family:'Lora',serif;font-size:13px;color:#777;font-style:italic;text-align:center;line-height:1.5;margin-top:10px}
+/* Intro chart wrapper */
+#introChartZoom{position:relative;height:220px;width:100%}
+
+/* ── v2: Nasser diff header override ── */
+.diff-panel-header.ar-nasser{background:#8b0000;color:#fff;font-weight:700;text-align:right;direction:rtl;padding:7px 12px;border-left:none;border-right:3px solid #fff;letter-spacing:.3px}
+/* v2: chart always visible */
+#v2{padding:12px 16px !important;overflow-y:auto}
+#v2 .chart-5b-wrap{position:relative;width:100%;height:260px;min-height:200px;margin:8px 0 0}
+
+.callout{border-radius:8px;padding:14px 18px;margin:14px 0;font-size:.85rem;line-height:1.55;font-family:'Lora',serif}
+.callout.red{background:#fff0f0;border-left:4px solid #c1121f}
+
+/* ── V3: campaign cards ── */
+.camp-card{width:100%;max-width:420px;background:#1a1a1a;border-radius:12px;padding:18px 22px;border-left:4px solid #c1121f;margin-bottom:10px;opacity:0;transform:translateY(14px);transition:opacity .4s ease,transform .4s ease}
+.camp-card.vis{opacity:1;transform:translateY(0)}
+.camp-arabic{font-size:1.15rem;font-weight:700;direction:rtl;color:#c1121f;margin-bottom:3px}
+.camp-xlat{font-style:italic;font-size:1rem;color:#aaa;margin-bottom:12px;font-family:'Lora',serif}
+.camp-count{font-size:2rem;font-weight:900;font-family:'Inter',sans-serif;color:#fff}
+.camp-label{font-size:.72rem;color:#666;letter-spacing:.08em;text-transform:uppercase;font-family:'Inter',sans-serif}
+.v3-note{font-family:'Inter',sans-serif;font-size:11px;color:#777;text-align:center;letter-spacing:.3px;line-height:1.5;max-width:420px;margin-top:4px}
+
+/* ── V4: timeline chart ── */
+.v4-chart-wrap{position:relative;width:100%;height:min(80vh,650px);min-height:500px}
+.v4-caption{font-family:'Lora',serif;font-size:13px;color:#777;font-style:italic;text-align:center;margin-top:12px;line-height:1.5}
+
+/* ── Step-specific sizing adjustments ── */
+#v4{padding:10px 10px !important}
+
+@media (max-width:900px){
+  #v2 .chart-5b-wrap{height:340px;min-height:340px}
+  .v4-chart-wrap{height:400px;min-height:400px}
+  .story-v4-wide .story-text,.story-v4-wide .story-vis{width:100%}
+}
+
+/* ── V5: donuts ── */
+.donuts-row{display:flex;gap:40px;align-items:flex-start}
+.donut-box{display:flex;flex-direction:column;align-items:center;gap:6px}
+.donut-canvas-wrap{position:relative;width:180px;height:180px}
+.donut-centre{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
+.donut-pct{font-family:'Inter',sans-serif;font-size:2rem;font-weight:900}
+.donut-sub{font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.8px;text-transform:uppercase;color:#aaa;text-align:center;line-height:1.4}
+.donut-note{font-family:'Lora',serif;font-size:12px;color:#666;font-style:italic;text-align:center;line-height:1.4}
+
+/* ── V5: concentration icon grids ── */
+.conc-wrap{width:100%;display:flex;gap:28px;align-items:flex-start;justify-content:center}
+.conc-col{flex:1;min-width:0}
+.conc-title{font-family:'Inter',sans-serif;font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:6px}
+.conc-title.ar{color:#c1121f}
+.conc-title.en{color:#1d6fa4}
+.conc-sub{font-family:'Lora',serif;font-size:12px;color:#9a9a9a;margin-bottom:10px}
+.conc-pct{font-family:'Inter',sans-serif;font-size:64px;font-weight:900;line-height:1;color:#1a1a1a}
+.conc-pct.ar{color:#c1121f}
+.conc-pct.en{color:#1d6fa4}
+.conc-top10{font-family:'Inter',sans-serif;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#9a9a9a;margin-bottom:10px}
+.conc-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:6px 6px;padding:6px 0 8px}
+.conc-sym{width:100%;aspect-ratio:1/1;position:relative}
+.conc-sym::before{content:"";position:absolute;left:33%;top:10%;width:34%;height:34%;border-radius:50%;background:var(--sym-color,#dbe3ef);transition:background-color .22s linear}
+.conc-sym::after{content:"";position:absolute;left:8%;right:8%;bottom:10%;height:40%;border-radius:18px 18px 0 0;background:var(--sym-color,#dbe3ef);transition:background-color .22s linear}
+.conc-foot{font-family:'Lora',serif;font-size:14px;color:#555;margin-top:6px}
+.conc-foot em{font-style:italic;color:#777}
+@media (max-width:900px){
+  .conc-wrap{flex-direction:column;gap:18px}
+  .conc-grid{gap:5px 5px}
+}
+
+/* ── PUNCHLINE ── */
+#punchline{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 8%;background:#1a1a1a;color:#fff;gap:0}
+.pl-beats{display:flex;flex-direction:column;align-items:center;gap:0;max-width:860px;text-align:center;margin-bottom:0}
+.pl-beat-1{display:flex;flex-direction:column;gap:18px}
+.pl-line{opacity:0;transition:opacity 0.7s ease;margin:0}
+.pl-line.b1{font-family:'Lora',serif;font-size:clamp(14px,1.5vw,20px);font-weight:400;font-style:italic;line-height:1.8;color:#aaaaaa}
+.pl-line.vis{opacity:1}
+.footer{font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.25);letter-spacing:.8px;text-align:center;line-height:1.8;margin-top:32px}
+.footer strong{color:rgba(255,255,255,.4)}
+
+/* ── Wiki history panel (hero) ── */
+.wiki-hist-panel{background:#fff;border:1px solid #e0e0e0;border-radius:8px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.08);min-width:340px;max-width:480px;width:100%}
+.wiki-hist-url{font-family:'Inter',sans-serif;font-size:10px;color:#72777d;background:#f8f9fa;padding:7px 12px;border-bottom:1px solid #e0e0e0;letter-spacing:.3px}
+.wiki-hist-table{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;font-size:11.5px}
+.wiki-hist-table th{background:#eaecf0;color:#54595d;font-weight:600;padding:5px 8px;text-align:left;font-size:10px;letter-spacing:.4px;border-bottom:1px solid #c8ccd1}
+.wiki-hist-row{border-bottom:1px solid #f0f0f0;animation:none}
+.wiki-hist-row.wiki-odd{background:#f8f9fa}
+.wiki-hist-row.wiki-new{animation:slideInRow .45s ease forwards}
+@keyframes slideInRow{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+.wiki-hist-row td{padding:5px 8px;vertical-align:middle;color:#202122}
+.wiki-user{color:#36c;cursor:pointer;white-space:nowrap}
+.wiki-size{font-weight:700;white-space:nowrap}
+.wiki-size.pos{color:#399a39}
+.wiki-size.neg{color:#a00}
+.wiki-summary{color:#54595d;font-style:italic;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ── Diff view (v2 panel) ── */
+.diff-outer{width:100%;display:flex;flex-direction:column;gap:12px}
+.diff-panel{background:#fff;border:1px solid #c8ccd1;border-radius:6px;overflow:hidden;font-family:'Courier New',monospace;font-size:12px}
+.diff-panel-header{padding:6px 12px;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;border-bottom:1px solid #c8ccd1}
+.diff-panel-header.ar{background:#fff5f5;color:#c1121f;border-left:3px solid #c1121f}
+.diff-panel-header.en{background:#f0f6ff;color:#1d6fa4;border-left:3px solid #1d6fa4}
+.diff-table{width:100%;border-collapse:collapse}
+.diff-table td{padding:3px 6px;border-bottom:1px solid #f0f0f0;vertical-align:top;white-space:pre}
+.diff-lineno{width:28px;text-align:right;color:#72777d;font-size:11px;padding-right:8px;user-select:none;border-right:1px solid #e0e0e0;background:#f8f9fa}
+.diff-sign{width:16px;text-align:center;font-weight:700;color:#72777d;padding:3px 4px}
+.diff-text{width:100%}
+.diff-text.removed{background:#ffe49c}
+.diff-text.added{background:#a3d3ff}
+.diff-text.context{color:#72777d}
+tr.diff-removed .diff-sign{color:#a00}
+tr.diff-added .diff-sign{color:#267126}
+.diff-label{font-family:'Lora',serif;font-size:11.5px;color:#555;font-style:italic;padding:6px 12px;border-top:1px solid #f0f0f0;background:#fafafa}
+.diff-label.ar-label{border-left:3px solid #c1121f}
+.diff-label.en-label{border-left:3px solid #1d6fa4}
+.diff-divider-caption{font-family:'Lora',serif;font-size:1.15rem;font-style:italic;color:#c1121f;text-align:center;padding:4px 0;font-weight:600}
+.diff-toggle-row{text-align:right;padding:2px 0}
+.diff-toggle-link{font-family:'Inter',sans-serif;font-size:11px;color:#36c;text-decoration:none;letter-spacing:.2px}
+.diff-toggle-link:hover{text-decoration:underline}
+
+/* ── Granger callout (v1 panel) ── */
+.granger-callout{background:#f9f9f9;border-left:3px solid #c1121f;border-radius:6px;padding:14px 18px;margin-top:20px}
+.granger-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#c1121f;margin-bottom:6px}
+.granger-body{font-family:'Inter',sans-serif;font-size:13px;color:#555;margin-bottom:10px;line-height:1.5}
+.granger-tbl{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;font-size:12px;margin-bottom:8px}
+.granger-tbl th{text-align:left;font-weight:600;padding:4px 8px;color:#444;font-size:10px;letter-spacing:.5px;text-transform:uppercase;border-bottom:1px solid #e0e0e0}
+.granger-tbl td{padding:5px 8px;border-bottom:1px solid #f0f0f0}
+.granger-tbl tr:nth-child(odd) td{background:#f4f4f4}
+.granger-note{font-family:'Lora',serif;font-size:12px;color:#777;font-style:italic;line-height:1.5}
+
+/* ── Live counter section ── */
+#counter-section{width:100%;max-width:860px;padding:10px 0 40px}
+.counter-row{display:flex;align-items:flex-start;justify-content:center;gap:0}
+.counter-box{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding:20px 12px}
+.counter-divider{width:1px;background:#c1121f;opacity:.4;align-self:stretch;margin:10px 0}
+.counter-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;text-align:center;opacity:.7}
+.counter-num{font-family:'Courier New',monospace;font-size:clamp(22px,3vw,38px);font-weight:700;letter-spacing:.05em;animation:cntPulse 2.8s ease-in-out infinite}
+@keyframes cntPulse{0%,100%{opacity:1}50%{opacity:.6}}
+.counter-sub{font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.8px;text-transform:uppercase;opacity:.45;text-align:center}
+.counter-footnote{font-family:'Lora',serif;font-size:13px;color:rgba(255,255,255,.58);font-style:italic;text-align:center;margin-top:28px;line-height:1.6}
+
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<!-- Hertie logo top-right -->
+<img class="hertie-logo" src="data:image/webp;base64,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" alt="Hertie School">
+
+<!-- Chai brand (exact SVG from egg_chicken.html) -->
+<div class="chai-brand">
+  <svg viewBox="0 0 52 68" width="36" height="47">
+    <path class="sp s1" d="M15,34 Q12,25 15,16 Q18,7 15,0"/>
+    <path class="sp s2" d="M22,32 Q19,23 22,14 Q25,5 22,-2"/>
+    <path class="sp s3" d="M29,34 Q26,25 29,16 Q32,7 29,0"/>
+    <path d="M4,37 L9,64 Q9,67 13,67 H39 Q43,67 43,64 L48,37Z" fill="#c1121f"/>
+    <rect x="1" y="32" width="50" height="8" rx="4" fill="#9b0e18"/>
+    <path d="M46,44 Q57,44 57,54 Q57,64 46,64" fill="none" stroke="#9b0e18" stroke-width="4.5" stroke-linecap="round"/>
+    <rect x="9" y="49" width="34" height="5" rx="2.5" fill="rgba(255,255,255,.12)"/>
+  </svg>
+  <div>
+    <div class="chai-brand-name">Chai Alliance</div>
+    <div class="chai-brand-sub">DataFest 2026</div>
+  </div>
+
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Chai Alliance &middot; DataFest 2026</div>
+    <h1 class="hero-title" style="text-align:left">Can an open encyclopedia stay <span class="red">neutral</span> in a <span class="red">conflicted world?</span></h1>
+    <p class="hero-sub" style="text-align:left">We looked behind the edit button.</p>
+    <div class="scroll-cue" style="justify-content:flex-start">&#8595; &nbsp;Scroll to find out</div>
+  </div>
+  <div class="hero-right" style="flex-direction:column;align-items:stretch;max-width:520px;width:100%">
+
+    <!-- A: Wikipedia chrome bar -->
+    <div style="display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:3px solid #c1121f;padding:8px 14px;border-radius:6px 6px 0 0">
+      <div style="display:flex;align-items:center;gap:10px">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/40px-Wikipedia-logo-v2.svg.png" alt="Wikipedia" width="32" height="32">
+        <div>
+          <div style="font-family:Georgia,serif;font-size:18px;font-weight:700;color:#202122;line-height:1.1">Wikipedia</div>
+          <div style="font-family:Georgia,serif;font-size:10px;color:#72777d;line-height:1.2">The Free Encyclopedia</div>
+        </div>
+      </div>
+      <div style="font-family:'Inter',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#c1121f">Chai Alliance &middot; DataFest 2026</div>
+    </div>
+
+    <!-- B: Nav tabs -->
+    <div style="display:flex;align-items:flex-end;background:#eaecf0;padding:0 14px;gap:0;border-bottom:1px solid #a2a9b1">
+      <div style="background:#fff;border:1px solid #a2a9b1;border-bottom:1px solid #fff;padding:5px 12px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:#202122;margin-bottom:-1px;border-radius:3px 3px 0 0">Article</div>
+      <div style="padding:6px 12px;font-family:'Inter',sans-serif;font-size:11px;color:#36c;cursor:pointer">Talk <span style="color:#c1121f;font-weight:700">(2,847)</span></div>
+      <div style="padding:6px 12px;font-family:'Inter',sans-serif;font-size:11px;color:#36c;cursor:pointer">Edit</div>
+      <div style="padding:6px 12px;font-family:'Inter',sans-serif;font-size:11px;color:#36c;cursor:pointer">View history</div>
+    </div>
+
+    <!-- C: Two article cards -->
+    <div style="display:flex;flex-direction:column;gap:14px;padding:14px 0 0;background:#f8f9fa">
+
+      <!-- Card 1: English Wikipedia -->
+      <div style="background:#fff;border:1px solid #a2a9b1;border-radius:5px;box-shadow:0 2px 6px rgba(0,0,0,.07);overflow:hidden">
+        <!-- Browser chrome -->
+        <div style="background:#e8e8e8;padding:5px 10px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #ccc">
+          <div style="display:flex;gap:4px">
+            <div style="width:9px;height:9px;border-radius:50%;background:#ff5f57"></div>
+            <div style="width:9px;height:9px;border-radius:50%;background:#ffbd2e"></div>
+            <div style="width:9px;height:9px;border-radius:50%;background:#28c840"></div>
+          </div>
+          <div style="flex:1;background:#fff;border-radius:10px;padding:2px 10px;font-family:monospace;font-size:9.5px;color:#444;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">en.wikipedia.org/wiki/Gaza_War_(2023&ndash;present)</div>
+        </div>
+        <!-- Article content -->
+        <div style="padding:12px 14px">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/40px-Wikipedia-logo-v2.svg.png" alt="" width="18" height="18">
+            <span style="font-family:'Inter',sans-serif;font-size:9px;color:#72777d">Wikipedia / The Free Encyclopedia</span>
+          </div>
+          <div style="font-family:Georgia,serif;font-size:15px;font-weight:700;color:#202122;border-bottom:1px solid #a2a9b1;padding-bottom:4px;margin-bottom:7px">Gaza War (2023&ndash;present)</div>
+          <p style="font-family:Georgia,serif;font-size:11.5px;color:#202122;line-height:1.6;margin:0">The <span style="color:#36c;cursor:pointer">Gaza War</span> is an ongoing armed conflict between <span style="color:#36c">Israel</span> and <span style="color:#36c">Hamas</span>-led Palestinian forces that began on <span style="color:#36c">7 October 2023</span>&hellip;</p>
+          <div style="margin-top:9px;background:#fef9e7;border:1px solid #e6c619;border-radius:3px;padding:5px 8px;font-family:'Inter',sans-serif;font-size:10px;color:#555;line-height:1.4">&#9888;&#65039; This article is subject to an edit war. &middot; <strong>889 reverts on Donald Trump alone.</strong></div>
+        </div>
+      </div>
+
+      <!-- Card 2: Arabic Wikipedia -->
+      <div style="background:#fff;border:1px solid #a2a9b1;border-radius:5px;box-shadow:0 2px 6px rgba(0,0,0,.07);overflow:hidden">
+        <!-- Browser chrome RTL -->
+        <div style="background:#e8e8e8;padding:5px 10px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #ccc;direction:rtl">
+          <div style="flex:1;background:#fff;border-radius:10px;padding:2px 10px;font-family:monospace;font-size:9.5px;color:#c1121f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right">ar.wikipedia.org/wiki/&#1581;&#1585;&#1576;_&#1594;&#1586;&#1577;_(2023&ndash;&#1575;&#1604;&#1570;&#1606;)</div>
+          <div style="display:flex;gap:4px">
+            <div style="width:9px;height:9px;border-radius:50%;background:#28c840"></div>
+            <div style="width:9px;height:9px;border-radius:50%;background:#ffbd2e"></div>
+            <div style="width:9px;height:9px;border-radius:50%;background:#ff5f57"></div>
+          </div>
+        </div>
+        <!-- Article content RTL -->
+        <div style="padding:12px 14px;direction:rtl;text-align:right">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px;justify-content:flex-end">
+            <span style="font-family:'Inter',sans-serif;font-size:9px;color:#72777d">&#1608;&#1610;&#1603;&#1610;&#1576;&#1610;&#1583;&#1610;&#1575; / &#1575;&#1604;&#1605;&#1608;&#1587;&#1608;&#1593;&#1577; &#1575;&#1604;&#1581;&#1585;&#1577;</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/40px-Wikipedia-logo-v2.svg.png" alt="" width="18" height="18">
+          </div>
+          <div style="font-family:Georgia,serif;font-size:15px;font-weight:700;color:#202122;border-bottom:1px solid #a2a9b1;padding-bottom:4px;margin-bottom:7px">&#1581;&#1585;&#1576; &#1594;&#1586;&#1577; (2023&ndash;&#1575;&#1604;&#1570;&#1606;)</div>
+          <p style="font-family:Georgia,serif;font-size:11.5px;color:#202122;line-height:1.6;margin:0">&#1581;&#1585;&#1576; &#1594;&#1586;&#1577; &#1607;&#1610; &#1606;&#1586;&#1575;&#1593; &#1605;&#1587;&#1604;&#1581; &#1605;&#1587;&#1578;&#1605;&#1585; &#1576;&#1610;&#1606; <span style="color:#36c">&#1573;&#1587;&#1585;&#1575;&#1574;&#1610;&#1604;</span> &#1608;&#1602;&#1608;&#1575;&#1578; <span style="color:#36c">&#1581;&#1585;&#1603;&#1577; &#1581;&#1605;&#1575;&#1587;</span> &#1575;&#1604;&#1601;&#1604;&#1587;&#1591;&#1610;&#1606;&#1610;&#1577;&#1548; &#1575;&#1606;&#1583;&#1604;&#1593;&#1578; &#1601;&#1610; <span style="color:#36c">&#1575;&#1604;&#1587;&#1575;&#1576;&#1593; &#1605;&#1606; &#1571;&#1603;&#1578;&#1608;&#1576;&#1585; 2023</span>&hellip;</p>
+          <div style="margin-top:9px;background:#fef9e7;border:1px solid #e6c619;border-radius:3px;padding:5px 8px;font-family:'Inter',sans-serif;font-size:10px;color:#555;line-height:1.4">&#9888;&#65039; &#1607;&#1584;&#1607; &#1575;&#1604;&#1605;&#1602;&#1575;&#1604;&#1577; &#1605;&#1608;&#1590;&#1593; &#1581;&#1585;&#1576; &#1578;&#1581;&#1585;&#1610;&#1585;. &middot; <strong>29 &#1581;&#1605;&#1604;&#1577; &#1578;&#1581;&#1585;&#1610;&#1585;&#1610;&#1577; &#1605;&#1606;&#1587;&#1602;&#1577;.</strong></div>
+        </div>
+      </div>
+
+    </div><!-- /cards -->
+  </div>
+</section>
+
+<!-- SCROLLYTELLING -->
+
+<!-- Step 0: Context - text LEFT, visual RIGHT -->
+<div class="story">
+  <div class="story-text">
+    <div class="step" data-step="s0">
+      <div class="step-tag">THE CONTEXT</div>
+      <h2 class="step-head"><span class="red"><strong>Political conflicts</strong></span> dominates everywhere.</h2>
+      <p class="step-body">We looked at the top 100 most-contested articles across five language editions in 2025.<br>
+      The most contested Wikipedia articles are overwhelmingly <strong>geographical</strong> and <strong>political</strong>.<br><br>
+      This is particularly evident in the Arabic edition.</p>
+    </div>
+  </div>
+  <div class="story-vis">
+    <div class="vstk">
+      <div class="vp" id="v0">
+
+        <!-- Controversial topics chart -->
+        <div style="width:100%;margin-top:10px">
+          <div class="chart-title" style="margin-bottom:4px">MOST CONTROVERSIAL TOPICS ON WIKIPEDIA</div>
+          <div style="position:relative;width:100%;height:360px">
+            <canvas id="chartIntro"></canvas>
+          </div>
+          <div style="display:flex;gap:14px;justify-content:center;margin-top:6px;font-family:'Inter',sans-serif;font-size:10px;color:#666;flex-wrap:wrap">
+            <span style="display:inline-flex;align-items:center;gap:4px"><span style="width:11px;height:11px;background:#6d6aac;border-radius:2px;display:inline-block"></span>Politics</span>
+            <span style="display:inline-flex;align-items:center;gap:4px"><span style="width:11px;height:11px;background:#1e3a6e;border-radius:2px;display:inline-block"></span>Geography</span>
+            <span style="display:inline-flex;align-items:center;gap:4px"><span style="width:11px;height:11px;background:#d0cfe8;border-radius:2px;display:inline-block"></span>Other topics</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Step 1: Finding 01 - text RIGHT, visual LEFT -->
+<div class="story story-reverse">
+  <div class="story-text">
+    <div class="step" data-step="s1">
+      <h2 class="step-head">Arabic Wikipedia shows significantly <span class="red"><strong>higher human-driven edit</strong></span> conflict than English Wikipedia.</h2>
+      <p class="step-body">Arabic Wikipedia is 11 times smaller than English. But its human editors reject each other's edits at almost twice the rate.<br><br>
+      Not bots. Real people, disputing real facts.<br><br>
+      <strong>Granger causality</strong> tests confirm this is structural &mdash; when an Arabic article goes viral, conflict follows. Every topic. In English? Almost no signal.</p>
+    </div>
+  </div>
+  <div class="story-vis">
+    <div class="vstk">
+      <div class="vp" id="v1">
+        <div style="font-family:'Inter',sans-serif;font-size:20px;font-weight:800;color:#4f4f57;letter-spacing:1.3px;margin-bottom:14px;text-align:center;text-transform:uppercase;line-height:1.2">Arabic Wikipedia: <span style="color:#c1121f;font-size:1.2em">1 in 5</span> human edits rejected. English: <span style="color:#1d6fa4;font-size:1.2em">1 in 9</span>.</div>
+        <div class="stat-cards">
+          <div class="stat-card ar">
+            <div class="stat-card-head">
+              <div class="lang-badge ar"><div class="script-ar">&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</div></div>
+              <div class="stat-card-wiki">Arabic Wikipedia (arwiki)</div>
+            </div>
+            <table class="stat-tbl">
+              <tr><td class="sk">Total edits in 2025</td><td class="sv">169,713</td></tr>
+              <tr><td class="sk">Unique human reverters</td><td class="sv">1,419</td></tr>
+              <tr><td class="sk">Overall revert rate</td><td class="sv">22.88%</td></tr>
+              <tr class="hl"><td class="sk">Human revert rate</td><td class="sv ar">19.67% &#8592; highest</td></tr>
+              <tr><td class="sk">Bot revert rate</td><td class="sv">1.05%</td></tr>
+            </table>
+          </div>
+          <div class="stat-card en">
+            <div class="stat-card-head">
+              <div class="lang-badge en"><div class="script-en">English</div></div>
+              <div class="stat-card-wiki">English Wikipedia (enwiki)</div>
+            </div>
+            <table class="stat-tbl">
+              <tr><td class="sk">Total edits in 2025</td><td class="sv">1,962,990</td></tr>
+              <tr><td class="sk">Unique human reverters</td><td class="sv">31,099</td></tr>
+              <tr><td class="sk">Overall revert rate</td><td class="sv">15.27%</td></tr>
+              <tr class="hl-en"><td class="sk">Human revert rate</td><td class="sv en">11.59%</td></tr>
+              <tr><td class="sk">Bot revert rate</td><td class="sv">9.43%</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- Granger callout -->
+        <div class="granger-callout">
+          <div class="granger-label">Methodology</div>
+          <div class="granger-body">We tested whether this is structural &mdash; not just elevated &mdash; using Granger causality.</div>
+          <table class="granger-tbl">
+            <thead>
+              <tr><th></th><th>Views &rarr; Reverts</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577; Arabic</strong></td><td>&#10003; all topics (p&lt;0.001)</td></tr>
+              <tr><td><strong>English</strong></td><td>&#10007; no signal</td></tr>
+            </tbody>
+          </table>
+          <div class="granger-note">When an Arabic article goes viral, editors mobilise immediately. English shows no equivalent pattern.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Step 2: Finding 02 - text LEFT, visual RIGHT -->
+<div class="story">
+  <div class="story-text">
+    <div class="step" data-step="s2">
+      <h2 class="step-head">Same articles.<br><span class="red">Different</span> battles.</h2>
+      <p class="step-body">
+        Using Wikidata QIDs we matched 2,016 articles across both languages.<br><br>
+        For the same article, Arabic Wikipedia editors fight over <strong>facts and content</strong> while English editors are more likely to dispute formatting and structure.
+      </p>
+    </div>
+  </div>
+  <div class="story-vis">
+    <div class="vstk">
+      <div class="vp" id="v2">
+
+        <!-- Element A: Arabic diff — Oman -->
+        <div class="diff-panel">
+          <div class="diff-panel-header ar-nasser">AR.WIKIPEDIA.ORG &#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577; &mdash; OMAN</div>
+          <table class="diff-table"><tbody>
+            <tr>
+              <td class="diff-lineno">44</td><td class="diff-lineno">44</td>
+              <td class="diff-sign">&ensp;</td>
+              <td class="diff-text context" dir="rtl">عُمان دولة عربية تقع على الساحل الجنوبي الشرقي من شبه الجزيرة العربية.</td>
+            </tr>
+            <tr class="diff-removed">
+              <td class="diff-lineno">45</td><td class="diff-lineno">&ensp;</td>
+              <td class="diff-sign" style="color:#a00">&#8722;</td>
+              <td class="diff-text" style="background:#fff3cd" dir="rtl">تعتمد عُمان سياسياً على القوى المجاورة.</td>
+            </tr>
+            <tr class="diff-added">
+              <td class="diff-lineno">&ensp;</td><td class="diff-lineno">45</td>
+              <td class="diff-sign" style="color:#267126">+</td>
+              <td class="diff-text" style="background:#d4edda" dir="rtl">تنتهج عُمان سياسة خارجية مستقلة وتؤدي دوراً في الوساطة الإقليمية.</td>
+            </tr>
+            <tr>
+              <td class="diff-lineno">46</td><td class="diff-lineno">46</td>
+              <td class="diff-sign">&ensp;</td>
+              <td class="diff-text context" dir="rtl">يُثار الجدل كثيراً حول موقعها الاستراتيجي في مضيق هرمز.</td>
+            </tr>
+          </tbody></table>
+          <div class="diff-label ar-label">Content disputed &mdash; <em>Oman&#8217;s foreign policy and strategic role</em></div>
+        </div>
+
+        <!-- Element B: separator -->
+        <div style="height:1px;background:#eee;margin:10px 0 6px"></div>
+        <div style="text-align:center;font-family:'Inter',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#bbb;margin-bottom:8px">Same Article &mdash; Data View</div>
+
+        <!-- Element C: bar chart, always visible, Oman highlighted -->
+        <div class="chart-5b-wrap"><canvas id="chart5b"></canvas></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Step 3: Finding 03 - text RIGHT, visual LEFT -->
+<div class="story story-reverse">
+  <div class="story-text">
+    <div class="step" data-step="s3">
+      <h2 class="step-head">29 named <span class="red">campaigns</span>. English Wikipedia has zero.</h2>
+      <p class="step-body">
+        Editors tag edits with custom labels &#8212; revealing organised campaigns.<br><br>
+        Arabic Wikipedia: <strong>29 named campaign tags</strong> &#8212; 16,984 occurrences, 5.2% of all tag uses.<br>
+        English Wikipedia: <strong>zero geopolitical campaign tags.</strong>
+      </p>
+    </div>
+  </div>
+  <div class="story-vis">
+    <div class="vstk">
+      <div class="vp" id="v3">
+        <div id="cc1" class="camp-card">
+          <div class="camp-arabic">&#1578;&#1594;&#1610;&#1610;&#1585; &#1573;&#1587;&#1585;&#1575;&#1574;&#1610;&#1604; &#1573;&#1604;&#1609; &#1601;&#1604;&#1587;&#1591;&#1610;&#1606;</div>
+          <div class="camp-xlat">&#8220;Change Israel &#8594; Palestine&#8221;</div>
+          <div class="camp-count">121</div>
+          <div class="camp-label">tagged edits</div>
+        </div>
+        <div id="cc2" class="camp-card">
+          <div class="camp-arabic">&#1575;&#1587;&#1578;&#1576;&#1583;&#1575;&#1604; &#1605;&#1589;&#1591;&#1604;&#1581; &#1583;&#1575;&#1593;&#1588;</div>
+          <div class="camp-xlat">&#8220;Replace the term ISIS&#8221;</div>
+          <div class="camp-count">113</div>
+          <div class="camp-label">tagged edits</div>
+        </div>
+        <div id="cc3" class="camp-card">
+          <div class="camp-arabic">&#1575;&#1587;&#1578;&#1576;&#1583;&#1575;&#1604; &#1575;&#1604;&#1589;&#1581;&#1585;&#1575;&#1569; &#1575;&#1604;&#1594;&#1585;&#1576;&#1610;&#1577;</div>
+          <div class="camp-xlat">&#8220;Replace Western Sahara&#8221;</div>
+          <div class="camp-count">44</div>
+          <div class="camp-label">tagged edits</div>
+        </div>
+        <div class="v3-note">
+          English Wikipedia campaign tags: citation tools, maintenance routines.<br>
+          <strong style="color:#fff">Zero geopolitical.</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Step 4: Finding 04 - text LEFT, visual RIGHT -->
+<div class="story story-v4-wide">
+  <div class="story-text">
+    <div class="step" data-step="s4">
+      <h2 class="step-head">Campaigns <span class="red">spike</span> after real world events.</h2>
+      <p class="step-body">
+        We plotted campaign intensity against key 2025 geopolitical events.<br><br>
+        <strong>Israel&#8594;Palestine</strong> peaks in February &#8212; weeks after the January 15 Gaza ceasefire.<br><br>
+        <strong>Replace ISIS</strong> hits its 2025 highest point in March &#8212; right after the Gaza War resumes on March 18.
+      </p>
+    </div>
+  </div>
+  <div class="story-vis">
+    <div class="vstk">
+      <div class="vp" id="v4">
+        <div class="v4-chart-wrap">
+          <canvas id="chartCampaignTimeline"></canvas>
+        </div>
+        <div class="v4-caption">Campaign activity by month, 2025 &mdash; key geopolitical event markers shown</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Step 5: Finding 05 - text RIGHT, visual LEFT -->
+<div class="story story-reverse">
+  <div class="story-text">
+    <div class="step" data-step="s5">
+      <h2 class="step-head">10 editors drive nearly <span class="red"><strong>half</strong></span> of all conflict.</h2>
+      <p class="step-body">
+        Out of 1,419 human editors who made reverts in Arabic Wikipedia in 2025,
+        just <strong>10 editors</strong> account for nearly half of all human reverts.<br><br>
+        The top 3 alone made over 7,300 reverts &#8212; an average of
+        <strong>20 reverts per day, every day, for a year.</strong>
+      </p>
+    </div>
+  </div>
+  <div class="story-vis">
+    <div class="vstk">
+      <div class="vp" id="v5">
+        <div class="chart-title" style="margin-bottom:18px">Editor concentration &#8212; who makes the reverts?</div>
+        <div class="conc-wrap">
+          <div class="conc-col">
+            <div class="conc-title ar">Arabic Wikipedia</div>
+            <div class="conc-sub">1,419 unique human reverters</div>
+            <div class="conc-pct ar">49%</div>
+            <div class="conc-top10">Top 10 editors</div>
+            <div class="conc-grid" id="concGridAr"></div>
+            <div class="conc-foot"><strong>49 of every 100 reverts</strong> <em>by just 10 people</em></div>
+          </div>
+          <div class="conc-col">
+            <div class="conc-title en">English Wikipedia</div>
+            <div class="conc-sub">31,097 unique human reverters</div>
+            <div class="conc-pct en">9.6%</div>
+            <div class="conc-top10">Top 10 editors</div>
+            <div class="conc-grid" id="concGridEn"></div>
+            <div class="conc-foot"><strong>~10 of every 100 reverts</strong> <em>by the top 10 editors</em></div>
+          </div>
+        </div>
+        <div class="chart-note" style="margin-top:14px">Arabic Wikipedia is not a community consensus. It&#8217;s a concentrated operation.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- PUNCHLINE -->
+<section id="punchline">
+  <div class="pl-beats" id="pl-beats">
+    <div class="pl-beat-1">
+      <p class="pl-line b1">The encyclopedia is open to anyone.</p>
+      <p class="pl-line b1">But it&#8217;s written by people living somewhere.</p>
+      <p class="pl-line b1">Believing something.</p>
+      <p class="pl-line b1">In 2025, in Arabic Wikipedia &#8212;</p>
+      <p class="pl-line b1">that somewhere was in the middle of a war.</p>
+    </div>
+  </div>
+
+  <!-- Red separator -->
+  <div style="width:60px;height:2px;background:#c1121f;margin:48px auto 44px;opacity:.7"></div>
+
+  <!-- Live counters -->
+  <div id="counter-section">
+    <div class="counter-row">
+      <div class="counter-box">
+        <div class="counter-label" style="color:#c1121f">&#1594;&#1586;&#1577; &mdash; &#1581;&#1585;&#1576; &#1594;&#1586;&#1577;</div>
+        <div class="counter-num" id="cnt-ar-gaza" style="color:#c1121f">&#8212;</div>
+        <div class="counter-sub">latest revision &middot; Arabic Wikipedia</div>
+      </div>
+      <div class="counter-divider"></div>
+      <div class="counter-box">
+        <div class="counter-label" style="color:#1d6fa4">Gaza War &mdash; en.wikipedia.org</div>
+        <div class="counter-num" id="cnt-en-gaza" style="color:#1d6fa4">&#8212;</div>
+        <div class="counter-sub">latest revision &middot; English Wikipedia</div>
+      </div>
+      <div class="counter-divider"></div>
+      <div class="counter-box">
+        <div class="counter-label" style="color:#fff">Arabic Wikipedia</div>
+        <div class="counter-num" id="cnt-ar-total" style="color:#fff">&#8212;</div>
+        <div class="counter-sub">total edits since founding</div>
+      </div>
+    </div>
+    <p class="counter-footnote">These numbers are live. Fetched right now from the Wikimedia API.</p>
+  </div>
+
+  <div class="footer">
+    <strong>Chai Alliance</strong> &nbsp;&middot;&nbsp; DataFest 2026<br>
+    Arabic Wikipedia (169,713 edits) + English Wikipedia (1,962,990 edits) &middot; 2025<br>
+    Analysis: edit_types, daily_reverts, page_info, campaign tags
+  </div>
+</section>
+
+<script>
+// =====================================================================
+//  CHART INIT — guarded by panel.dataset.chartDone
+// =====================================================================
+
+// (shared article bar charts removed — V2 now uses storyboard)
+
+var introChartDone = false;
+var introAnimTriggered = false;
+var introChartInstance = null;
+
+function initIntroChart() {
+  if (introChartDone) return;
+  introChartDone = true;
+
+  var canvas = document.getElementById('chartIntro');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+
+  introChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Arabic', 'English', 'Spanish', 'German', 'French'],
+      datasets: [
+        { label: 'Politics',        data: [0,0,0,0,0], backgroundColor: '#6d6aac', borderWidth: 0 },
+        { label: 'Geography',       data: [0,0,0,0,0], backgroundColor: '#1e3a6e', borderWidth: 0 },
+        { label: 'Religion',        data: [0,0,0,0,0], backgroundColor: '#d0cfe8', borderWidth: 0 },
+        { label: 'History/Society', data: [0,0,0,0,0], backgroundColor: '#d0cfe8', borderWidth: 0 },
+        { label: 'Sex/Gender/Race', data: [0,0,0,0,0], backgroundColor: '#d0cfe8', borderWidth: 0 },
+        { label: 'Science',         data: [0,0,0,0,0], backgroundColor: '#d0cfe8', borderWidth: 0 },
+        { label: 'Culture/Arts',    data: [0,0,0,0,0], backgroundColor: '#d0cfe8', borderWidth: 0 },
+        { label: 'Other',           data: [0,0,0,0,0], backgroundColor: '#e8e8e8', borderWidth: 0 }
+      ]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: {
+        duration: 1200,
+        easing: 'easeInOutQuart',
+        delay: function(context) {
+          return context.dataIndex * 150;
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: function(c) { return ' ' + c.dataset.label + ': ' + c.parsed.x + '%'; } } }
+      },
+      scales: {
+        x: { stacked: true, min: 0, max: 100,
+             ticks: { callback: function(v) { return v + '%'; }, font: { size: 10 } },
+             grid: { color: 'rgba(0,0,0,.06)' } },
+        y: { stacked: true, ticks: { font: { size: 11 } } }
+      }
+    },
+    plugins: [{
+      id: 'arHighlight',
+      afterDraw: function(chart) {
+        if (!chart.$showArabicHighlight) return;
+        var meta0 = chart.getDatasetMeta(0);
+        if (!meta0.data || !meta0.data[0]) return;
+        var bar0 = meta0.data[0];
+        var y = bar0.y; var h = bar0.height;
+        var xAxis = chart.scales.x;
+        var yAxis = chart.scales.y;
+        var c2 = chart.ctx;
+
+        // Red outline box around Arabic row
+        c2.save();
+        c2.strokeStyle = 'rgba(193,18,31,0.75)';
+        c2.lineWidth = 2.5;
+        c2.shadowColor = 'rgba(193,18,31,0.35)';
+        c2.shadowBlur = 8;
+        c2.strokeRect(xAxis.left - 2, y - h/2 - 4, xAxis.right - xAxis.left + 4, h + 8);
+        c2.restore();
+
+        // Highlight Arabic y-axis label when focus is activated.
+        c2.save();
+        c2.font = '700 12px Inter, sans-serif';
+        c2.textAlign = 'right';
+        c2.textBaseline = 'middle';
+        var arabicLabel = 'Arabic';
+        var tw = c2.measureText(arabicLabel).width;
+        var labelX = yAxis.left - 14;
+        var boxW = tw + 14;
+        var boxH = 20;
+        var boxX = labelX - boxW + 4;
+        var boxY = y - boxH / 2;
+        c2.fillStyle = 'rgba(193,18,31,0.12)';
+        c2.beginPath();
+        c2.roundRect(boxX, boxY, boxW, boxH, 6);
+        c2.fill();
+        c2.fillStyle = '#c1121f';
+        c2.fillText(arabicLabel, labelX, y + 0.5);
+        c2.restore();
+
+        // % labels on each Arabic bar segment
+        c2.save();
+        c2.textAlign = 'center';
+        c2.textBaseline = 'middle';
+        c2.font = 'bold 11px Inter, sans-serif';
+        for (var dsIdx = 0; dsIdx < chart.data.datasets.length; dsIdx++) {
+          var meta = chart.getDatasetMeta(dsIdx);
+          if (!meta.data || !meta.data[0] || meta.hidden) continue;
+          var seg = meta.data[0];
+          var val = chart.data.datasets[dsIdx].data[0];
+          if (!val || val === 0) continue;
+          var segW = seg.x - seg.base;
+          if (segW < 38) continue; // hide tiny labels (e.g., 4%, 2%) to avoid clutter after 13%
+          var cx = (seg.x + seg.base) / 2;
+          var cy = seg.y;
+          var bg = chart.data.datasets[dsIdx].backgroundColor;
+          c2.fillStyle = (bg === '#6d6aac' || bg === '#1e3a6e') ? '#ffffff' : '#555555';
+          c2.fillText(val + '%', cx, cy);
+        }
+        c2.restore();
+      }
+    }]
+  });
+
+  // First show plain bars; reveal Arabic highlight on click.
+  introChartInstance.$showArabicHighlight = false;
+  if (!canvas.dataset.highlightBindDone) {
+    canvas.dataset.highlightBindDone = '1';
+    canvas.addEventListener('click', function() {
+      if (!introChartInstance || introChartInstance.$showArabicHighlight) return;
+      introChartInstance.$showArabicHighlight = true;
+      introChartInstance.update();
+    });
+  }
+
+  // ── Animate on scroll into view (once only) ───────────────────────────
+  var REAL = [
+    [48,28,30,26,27],  // Politics
+    [13,10,12,14,11],  // Geography
+    [18,12,13,10,14],  // Religion
+    [ 8,13,10,14,11],  // History/Society
+    [ 4,12,10, 9, 8],  // Sex/Gender/Race
+    [ 2, 8, 6, 9, 7],  // Science
+    [ 5,12,14,13,17],  // Culture/Arts
+    [ 2, 5, 5, 5, 5]   // Other
+  ];
+
+  var observer = new IntersectionObserver(function(entries) {
+    if (introAnimTriggered || !entries[0].isIntersecting) return;
+    introAnimTriggered = true;
+    observer.disconnect();
+    REAL.forEach(function(vals, dsIdx) {
+      introChartInstance.data.datasets[dsIdx].data = vals.slice();
+    });
+    introChartInstance.update();
+  }, { threshold: 0.15 });
+  observer.observe(canvas);
+}
+
+function initChart5b() {
+  var ctx = document.getElementById('chart5b').getContext('2d');
+  // 3 articles: Oman (idx 0), Omar Marmoush (idx 1), GTA V (idx 2)
+  var HI = 0; // Oman is first
+  var N  = 3;
+  function colArr(full, dim) {
+    var a = [];
+    for (var i = 0; i < N; i++) a.push(i === HI ? full : dim);
+    return a;
+  }
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ["Oman", "Omar Marmoush", ["Grand Theft","Auto V"]],
+      datasets: [
+        { label: 'Arabic — content %',    data: [50.0, 62.8, 57.1],
+          backgroundColor: colArr('#c1121f','rgba(193,18,31,0.22)'),   borderRadius: 3 },
+        { label: 'Arabic — formatting %', data: [23.7, 25.6, 20.6],
+          backgroundColor: colArr('#f4a0a0','rgba(244,160,160,0.22)'), borderRadius: 3 },
+        { label: 'English — content %',   data: [18.4, 22.4, 31.2],
+          backgroundColor: colArr('#1d6fa4','rgba(29,111,164,0.22)'),  borderRadius: 3 },
+        { label: 'English — formatting %',data: [66.7, 64.6, 31.2],
+          backgroundColor: colArr('#a0c4f4','rgba(160,196,244,0.22)'), borderRadius: 3 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      layout: { padding: { top: 36, bottom: 4 } },
+      plugins: {
+        title: { display: false },
+        legend: { position: 'top', labels: { font: { size: 9 }, padding: 6, boxWidth: 10 } },
+        tooltip: { callbacks: { label: function(c) { return ' ' + c.dataset.label + ': ' + c.parsed.y + '%'; } } }
+      },
+      scales: {
+        y: { beginAtZero: true, max: 100,
+             ticks: { callback: function(v){ return v+'%'; }, font: { size: 9 } },
+             title: { display: true, text: '% of reverted edits', font: { size: 9 } } },
+        x: { grid: { display: false },
+             ticks: { autoSkip: false, maxRotation: 0, minRotation: 0,
+                      padding: 6, font: { size: 9 } } }
+      }
+    },
+    plugins: [{
+      id: 'omanHighlight',
+      afterDraw: function(chart) {
+        var ctx2 = chart.ctx;
+        var metas = [0,1,2,3].map(function(i){ return chart.getDatasetMeta(i); });
+        var bars = metas.map(function(m){ return m.data && m.data[HI]; }).filter(Boolean);
+        if (!bars.length) return;
+
+        // bounding box of the Oman group
+        var xMin = Infinity, xMax = -Infinity, yMin = Infinity;
+        bars.forEach(function(b) {
+          var bx = b.x, bw = b.width || 10;
+          xMin = Math.min(xMin, bx - bw/2);
+          xMax = Math.max(xMax, bx + bw/2);
+          yMin = Math.min(yMin, b.y);
+        });
+        var yBase = chart.scales.y.getPixelForValue(0);
+        var PAD = 5;
+
+        ctx2.save();
+        ctx2.strokeStyle = '#c1121f';
+        ctx2.lineWidth   = 2;
+        ctx2.shadowColor = 'rgba(193,18,31,0.3)';
+        ctx2.shadowBlur  = 6;
+        var rx = xMin - PAD, ry = yMin - PAD;
+        var rw = xMax - xMin + PAD*2, rh = yBase - yMin + PAD;
+        ctx2.beginPath();
+        ctx2.roundRect(rx, ry, rw, rh, 4);
+        ctx2.stroke();
+        ctx2.shadowBlur = 0;
+
+        // Highlighted content % labels for Oman
+        var arBar = chart.getDatasetMeta(0).data[HI];
+        var enBar = chart.getDatasetMeta(2).data[HI];
+        var arVal = chart.data.datasets[0].data[HI];
+        var enVal = chart.data.datasets[2].data[HI];
+        if (arBar) {
+          ctx2.font      = 'bold 11px Inter,sans-serif';
+          ctx2.fillStyle = '#c1121f';
+          ctx2.textAlign = 'center';
+          ctx2.fillText(Math.round(arVal) + '%', arBar.x, arBar.y - 6);
+        }
+        if (enBar) {
+          ctx2.font      = 'bold 11px Inter,sans-serif';
+          ctx2.fillStyle = '#1d6fa4';
+          ctx2.textAlign = 'center';
+          ctx2.fillText(Math.round(enVal) + '%', enBar.x, enBar.y - 6);
+        }
+
+        ctx2.restore();
+      }
+    }]
+  });
+}
+
+function initCampaignTimelineChart() {
+  var ctx = document.getElementById('chartCampaignTimeline').getContext('2d');
+  var delayed = false;
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+      datasets: [
+        {
+          label: 'Change Israel→Palestine',
+          data: [8,19,12,12,16,9,6,11,8,4,7,9],
+          borderColor: '#d62728',
+          backgroundColor: 'rgba(214,39,40,0.15)',
+          pointBackgroundColor: '#d62728',
+          pointRadius: 3,
+          pointHoverRadius: 4,
+          borderWidth: 3.2,
+          tension: 0.35
+        },
+        {
+          label: 'Replace ISIS term',
+          data: [12,10,23,9,14,5,5,6,5,6,6,12],
+          borderColor: '#1f77b4',
+          backgroundColor: 'rgba(31,119,180,0.15)',
+          pointBackgroundColor: '#1f77b4',
+          pointRadius: 3,
+          pointHoverRadius: 4,
+          borderWidth: 3.2,
+          tension: 0.35
+        },
+        {
+          label: 'Replace "Western Sahara"',
+          data: [6,4,1,5,1,4,1,1,1,6,9,5],
+          borderColor: '#2ca02c',
+          backgroundColor: 'rgba(44,160,44,0.12)',
+          pointBackgroundColor: '#2ca02c',
+          pointRadius: 3,
+          pointHoverRadius: 4,
+          borderWidth: 3.2,
+          tension: 0.35
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        title: {
+          display: true,
+          text: 'Arabic Wikipedia — Editorial Campaign Activity in 2025 with Key Geopolitical Events',
+          font: { family: 'Inter, sans-serif', size: 17, weight: '700' },
+          padding: { bottom: 12 }
+        },
+        legend: { display: false },
+        tooltip: { callbacks: { label: function(c) { return ' ' + c.dataset.label + ': ' + c.parsed.y + ' tagged edits'; } } }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 28,
+          title: { display: true, text: 'Tagged edits per month' },
+          grid: { color: 'rgba(0,0,0,.06)' }
+        },
+        x: { grid: { display: false } }
+      },
+      animation: {
+        onComplete: function() { delayed = true; }
+      },
+      animations: {
+        x: {
+          type: 'number',
+          easing: 'easeOutQuart',
+          duration: 350,
+          from: NaN,
+          delay: function(ctx) {
+            if (ctx.type !== 'data' || ctx.xStarted || delayed) return 0;
+            ctx.xStarted = true;
+            return ctx.dataIndex * 150;
+          }
+        },
+        y: {
+          type: 'number',
+          easing: 'easeOutQuart',
+          duration: 350,
+          from: function(ctx) {
+            if (ctx.type !== 'data') return 0;
+            var prev = ctx.index === 0 ? 0 : ctx.chart.data.datasets[ctx.datasetIndex].data[ctx.index - 1];
+            return prev;
+          },
+          delay: function(ctx) {
+            if (ctx.type !== 'data' || ctx.yStarted || delayed) return 0;
+            ctx.yStarted = true;
+            return ctx.dataIndex * 150;
+          }
+        }
+      }
+    },
+    plugins: [{
+      id: 'spikeBands',
+      beforeDraw: function(chart) {
+        var x = chart.scales.x;
+        var y = chart.scales.y;
+        var c = chart.ctx;
+        if (!x || !y) return;
+
+        function drawBandByCenter(center, widthPx, fill) {
+          var left = center - widthPx / 2;
+          var right = center + widthPx / 2;
+          c.save();
+          c.fillStyle = fill;
+          c.fillRect(left, y.top, right - left, y.bottom - y.top);
+          c.restore();
+        }
+
+        var step = x.getPixelForValue(2) - x.getPixelForValue(1);
+        // Red band: centered between Feb-Mar, width reduced to ~70% of original two-month span.
+        drawBandByCenter((x.getPixelForValue(1) + x.getPixelForValue(2)) / 2, step * 1.4, 'rgba(231,76,60,0.14)');
+        // Blue band: only around the two spike points area (tight around May peak zone).
+        drawBandByCenter(x.getPixelForValue(4), step * 0.95, 'rgba(41,128,185,0.16)');
+      }
+    }, {
+      id: 'insideLegend',
+      afterDraw: function(chart) {
+        var area = chart.chartArea;
+        var c = chart.ctx;
+        var items = [
+          { text: 'Change Israel\u2192Palestine', color: '#d62728' },
+          { text: 'Replace ISIS term', color: '#1f77b4' },
+          { text: 'Replace "Western Sahara"', color: '#2ca02c' }
+        ];
+        var lineH = 36;
+        var padX = 16;
+        var padY = 14;
+        var boxW = 320;
+        var boxH = padY * 2 + lineH * items.length - 6;
+        var boxX = area.right - boxW - 18;
+        var boxY = area.top + 56;
+
+        c.save();
+        c.fillStyle = 'rgba(255,255,255,0.86)';
+        c.beginPath();
+        c.roundRect(boxX, boxY, boxW, boxH, 8);
+        c.fill();
+
+        c.font = '700 14px Inter, sans-serif';
+        c.textAlign = 'left';
+        c.textBaseline = 'middle';
+        items.forEach(function(item, i) {
+          var yRow = boxY + padY + i * lineH + 12;
+          c.strokeStyle = item.color;
+          c.lineWidth = 6;
+          c.beginPath();
+          c.moveTo(boxX + padX, yRow);
+          c.lineTo(boxX + padX + 22, yRow);
+          c.stroke();
+
+          c.fillStyle = item.color;
+          c.fillText(item.text, boxX + padX + 34, yRow + 1);
+        });
+        c.restore();
+      }
+    }, {
+      id: 'eventMarkers',
+      afterDraw: function(chart) {
+        var x = chart.scales.x;
+        var y = chart.scales.y;
+        var c = chart.ctx;
+        var markers = [
+          { idx: 0.45, lines: ['Ceasefire'], color: '#ff7f0e' },
+          { idx: 2.55, lines: ['Gaza War', 'Resumes'], color: '#9467bd' },
+          { idx: 5.7, lines: ['Iran-Israel', 'US Strikes'], color: '#8c564b' },
+          { idx: 9.3, lines: ['Gaza', 'Peace Deal'], color: '#e377c2' }
+        ];
+        function rgbaFromHex(hex, alpha) {
+          var h = hex.replace('#', '');
+          if (h.length === 3) {
+            h = h.split('').map(function(ch){ return ch + ch; }).join('');
+          }
+          var r = parseInt(h.slice(0,2), 16);
+          var g = parseInt(h.slice(2,4), 16);
+          var b = parseInt(h.slice(4,6), 16);
+          return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+        }
+
+        c.save();
+        c.setLineDash([5, 4]);
+        c.lineWidth = 1.5;
+        c.font = "bold 12px Inter, sans-serif";
+        c.textAlign = 'center';
+        c.textBaseline = 'middle';
+        markers.forEach(function(m) {
+          var px = x.getPixelForDecimal(m.idx / 11);
+          // Tag box behind event labels so dashed marker does not visually cut through text.
+          var lineHeight = 18;
+          var topPad = 8;
+          var sidePad = 10;
+          var line1 = m.lines[0];
+          var line2 = m.lines[1] || '';
+          var w1 = c.measureText(line1).width;
+          var w2 = line2 ? c.measureText(line2).width : 0;
+          var boxW = Math.max(w1, w2) + sidePad * 2;
+          var boxH = line2 ? (lineHeight * 2 + topPad * 2) : (lineHeight + topPad * 2);
+          var boxX = px - boxW / 2;
+          var boxY = y.top + 2;
+          var boxBottom = boxY + boxH;
+
+          // Draw dashed line in two segments, leaving a gap under the label box.
+          c.strokeStyle = m.color;
+          c.beginPath();
+          c.moveTo(px, y.top);
+          c.lineTo(px, boxY - 6);
+          c.stroke();
+          c.beginPath();
+          c.moveTo(px, boxBottom + 6);
+          c.lineTo(px, y.bottom);
+          c.stroke();
+
+          c.setLineDash([]);
+          c.fillStyle = rgbaFromHex(m.color, 0.24);
+          c.strokeStyle = 'rgba(0,0,0,0.08)';
+          c.lineWidth = 1;
+          c.beginPath();
+          c.roundRect(boxX, boxY, boxW, boxH, 6);
+          c.fill();
+          c.stroke();
+
+          c.fillStyle = m.color;
+          c.fillText(line1, px, boxY + topPad + lineHeight / 2);
+          if (line2) c.fillText(line2, px, boxY + topPad + lineHeight + lineHeight / 2);
+          c.setLineDash([5, 4]);
+        });
+        c.restore();
+      }
+    }]
+  });
+}
+
+function initConcentrationGrid() {
+  function buildGrid(id) {
+    var el = document.getElementById(id);
+    if (!el) return [];
+    var html = '';
+    for (var i = 0; i < 100; i++) {
+      html += '<span class="conc-sym" style="--sym-color:#dbe3ef"></span>';
+    }
+    el.innerHTML = html;
+    return Array.prototype.slice.call(el.querySelectorAll('.conc-sym'));
+  }
+  function animateFill(cells, count, color, tickMs) {
+    for (var i = 0; i < count; i++) {
+      (function(idx) {
+        setTimeout(function() {
+          if (cells[idx]) cells[idx].style.setProperty('--sym-color', color);
+        }, idx * tickMs);
+      })(i);
+    }
+  }
+  var arCells = buildGrid('concGridAr');
+  var enCells = buildGrid('concGridEn');
+  animateFill(arCells, 49, '#c1121f', 44);
+  animateFill(enCells, 10, '#1d6fa4', 44);
+}
+
+function showCards() {
+  ['cc1', 'cc2', 'cc3'].forEach(function(id, i) {
+    setTimeout(function() {
+      var el = document.getElementById(id);
+      if (el) el.classList.add('vis');
+    }, i * 160);
+  });
+}
+
+// =====================================================================
+//  STEP DISPATCH — panels always visible, init charts on entry
+// =====================================================================
+var curStep = null;
+
+function handleStep(stepId) {
+  if (stepId === curStep) return;
+  curStep = stepId;
+  var panelId = 'v' + stepId.slice(1);
+  var panel   = document.getElementById(panelId);
+  if (!panel || panel.dataset.chartDone) return;
+  panel.dataset.chartDone = 'true';
+  switch (stepId) {
+    case 's0': initIntroChart(); break;
+    case 's2': initChart5b(); break;
+    case 's3': showCards();     break;
+    case 's4': initCampaignTimelineChart(); break;
+    case 's5': initConcentrationGrid(); break;
+  }
+}
+
+// =====================================================================
+//  INTERSECTION OBSERVER — exact from egg_chicken.html
+// =====================================================================
+var io = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.classList.add('on');
+      handleStep(e.target.dataset.step);
+    } else {
+      e.target.classList.remove('on');
+    }
+  });
+}, { threshold: 0.45, rootMargin: '-8% 0% -8% 0%' });
+
+document.querySelectorAll('.step').forEach(function(s) { io.observe(s); });
+
+// =====================================================================
+//  PUNCHLINE — five-beat fade-in (0.6s delay between lines)
+// =====================================================================
+var plObs = new IntersectionObserver(function(entries) {
+  if (entries[0].isIntersecting) {
+    var lines = document.querySelectorAll('.pl-line');
+    lines.forEach(function(line, i) {
+      setTimeout(function() { line.classList.add('vis'); }, 400 + i * 700);
+    });
+    plObs.disconnect();
+    // trigger counters when punchline visible
+    setTimeout(fetchCounters, 1200);
+  }
+}, { threshold: 0.2 });
+plObs.observe(document.getElementById('punchline'));
+
+// =====================================================================
+//  WIKI HISTORY PANEL — live-edit simulation
+// =====================================================================
+(function() {
+  var queue = [
+    { user: '\u0628\u062f\u0627\u062d', userAr: true, size: '-89',  pos: false, summary: 'rv - \u062a\u063a\u064a\u064a\u0631 \u0627\u0644\u0635\u064a\u0627\u063a\u0629 \u0625\u0644\u0649 \u0627\u0644\u0645\u062d\u0627\u064a\u062f\u0629' },
+    { user: '\u0639\u0644\u0627\u0621', userAr: true, size: '+234', pos: true,  summary: '\u0627\u0633\u062a\u0639\u0627\u062f\u0629 \u2014 \u062a\u063a\u064a\u064a\u0631 \u0625\u0633\u0631\u0627\u0626\u064a\u0644 \u0625\u0644\u0649 \u0641\u0644\u0633\u0637\u064a\u0646' },
+    { user: 'ClueBot NG',              userAr: false, size: '-2',   pos: false, summary: 'Reverted possible test edit' },
+    { user: '\u0628\u0627\u0633\u0645', userAr: true, size: '+145', pos: true,  summary: 'rv - \u0627\u0633\u062a\u0639\u0627\u062f\u0629 \u0627\u0644\u0646\u0633\u062e\u0629 \u0627\u0644\u0633\u0627\u0628\u0642\u0629' },
+    { user: 'Materialscientist',       userAr: false, size: '-44',  pos: false, summary: 'Reverted unsourced addition' },
+    { user: '\u0639\u0644\u0627\u0621', userAr: true, size: '+67',  pos: true,  summary: '\u0627\u0633\u062a\u0628\u062f\u0627\u0644 \u0645\u0635\u0637\u0644\u062d \u062f\u0627\u0639\u0634' },
+  ];
+  var qIdx = 0;
+  var tbody = document.getElementById('wikiHistBody');
+  if (!tbody) return;
+  function addRow() {
+    var e = queue[qIdx % queue.length]; qIdx++;
+    var now = new Date();
+    var ts  = now.getUTCHours().toString().padStart(2,'0') + ':' + now.getUTCMinutes().toString().padStart(2,'0');
+    var rows = tbody.querySelectorAll('tr');
+    var isOdd = (rows.length % 2 === 0);
+    var tr = document.createElement('tr');
+    tr.className = 'wiki-hist-row wiki-new' + (isOdd ? ' wiki-odd' : '');
+    var userStyle = e.userAr ? 'style="color:#c1121f"' : '';
+    tr.innerHTML =
+      '<td>' + ts + '</td>' +
+      '<td class="wiki-user" ' + userStyle + '>' + e.user + '</td>' +
+      '<td class="wiki-size ' + (e.pos ? 'pos' : 'neg') + '">' + e.size + '</td>' +
+      '<td class="wiki-summary">' + e.summary + '</td>';
+    tbody.insertBefore(tr, tbody.firstChild);
+    // remove last row if too many
+    if (tbody.rows.length > 9) tbody.deleteRow(tbody.rows.length - 1);
+    // re-stripe
+    Array.prototype.forEach.call(tbody.rows, function(r, i) {
+      r.classList.remove('wiki-odd');
+      if (i % 2 === 1) r.classList.add('wiki-odd');
+    });
+  }
+  setInterval(addRow, 2200);
+})();
+
+// =====================================================================
+//  CHART 5B TOGGLE
+// =====================================================================
+(function() {
+  var toggle = document.getElementById('chart5bToggle');
+  var wrap   = document.getElementById('chart5bWrap');
+  if (!toggle || !wrap) return;
+  var loaded = false;
+  toggle.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (wrap.style.display === 'none') {
+      wrap.style.display = 'block';
+      toggle.textContent = 'hide chart \u2190';
+      if (!loaded) { loaded = true; initChart5b(); }
+    } else {
+      wrap.style.display = 'none';
+      toggle.textContent = 'see full data \u2192';
+    }
+  });
+})();
+
+// =====================================================================
+//  LIVE COUNTERS — Wikimedia API
+// =====================================================================
+function animateCount(el, target, duration) {
+  var start = null;
+  var fmt = function(n) { return Math.round(n).toLocaleString(); };
+  function step(ts) {
+    if (!start) start = ts;
+    var p = Math.min((ts - start) / duration, 1);
+    var ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = fmt(ease * target);
+    if (p < 1) requestAnimationFrame(step);
+    else el.textContent = fmt(target);
+  }
+  requestAnimationFrame(step);
+}
+
+function fetchCounters() {
+  var arGazaEl  = document.getElementById('cnt-ar-gaza');
+  var enGazaEl  = document.getElementById('cnt-en-gaza');
+  var arTotalEl = document.getElementById('cnt-ar-total');
+
+  // Fallbacks
+  var FB_AR_GAZA  = 48320;
+  var FB_EN_GAZA  = 1256780;
+  var FB_AR_TOTAL = 47200000;
+
+  // 1. Arabic Gaza article — lastrevid
+  fetch('https://ar.wikipedia.org/w/api.php?action=query&titles=%D8%AD%D8%B1%D8%A8_%D8%BA%D8%B2%D8%A9_(2023%E2%80%93%D8%A7%D9%84%D8%A2%D9%86)&prop=info&format=json&origin=*')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      var pages = d.query && d.query.pages;
+      var pg = pages && pages[Object.keys(pages)[0]];
+      var val = (pg && pg.lastrevid) ? pg.lastrevid : FB_AR_GAZA;
+      animateCount(arGazaEl, val, 2000);
+    })
+    .catch(function(){ animateCount(arGazaEl, FB_AR_GAZA, 2000); });
+
+  // 2. English Gaza article — lastrevid
+  fetch('https://en.wikipedia.org/w/api.php?action=query&titles=2023_Israel%E2%80%93Hamas_war&prop=info&format=json&origin=*')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      var pages = d.query && d.query.pages;
+      var pg = pages && pages[Object.keys(pages)[0]];
+      var val = (pg && pg.lastrevid) ? pg.lastrevid : FB_EN_GAZA;
+      animateCount(enGazaEl, val, 2000);
+    })
+    .catch(function(){ animateCount(enGazaEl, FB_EN_GAZA, 2000); });
+
+  // 3. Arabic Wikipedia total edits — siteinfo statistics
+  fetch('https://ar.wikipedia.org/w/api.php?action=query&meta=siteinfo&siprop=statistics&format=json&origin=*')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      var stats = d.query && d.query.statistics;
+      var val = (stats && stats.edits) ? stats.edits : FB_AR_TOTAL;
+      animateCount(arTotalEl, val, 2500);
+    })
+    .catch(function(){ animateCount(arTotalEl, FB_AR_TOTAL, 2500); });
+}
+
+// =====================================================================
+//  PROGRESS BAR — exact from egg_chicken.html
+// =====================================================================
+window.addEventListener('scroll', function() {
+  var h = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById('prog').style.width = (window.scrollY / h * 100) + '%';
+});
+
+// =====================================================================
+//  KEYBOARD NAV — exact from egg_chicken.html
+// =====================================================================
+var navTargets = [document.getElementById('hero')]
+  .concat(Array.from(document.querySelectorAll('.step')))
+  .concat([document.getElementById('punchline')]);
+var navIdx = 0;
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowDown' || e.key === ' ') {
+    e.preventDefault();
+    navIdx = Math.min(navIdx + 1, navTargets.length - 1);
+    navTargets[navIdx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    navIdx = Math.max(navIdx - 1, 0);
+    navTargets[navIdx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+});
+
+
+// =====================================================================
+//  INIT: first step + intro chart on load
+// =====================================================================
+document.querySelector('.step').classList.add('on');
+requestAnimationFrame(function() { initIntroChart(); });
+</script>
+</body>
+</html>
