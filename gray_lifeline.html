@@ -1,0 +1,362 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gray Lifeline — Huizhao Huang</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #1a1a1a;
+    --gray: #6b6b6b;
+    --light: #f5f4f0;
+    --accent: #c44d2b;
+    --white: #ffffff;
+    --border: #e0ddd8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--black);
+    background: var(--white);
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* --- NAV --- */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+  }
+  nav .inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  nav .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem; letter-spacing: -0.02em;
+    color: var(--black); text-decoration: none;
+  }
+  nav .links a {
+    font-size: 0.85rem; color: var(--gray); text-decoration: none;
+    margin-left: 2.5rem; letter-spacing: 0.03em; font-weight: 400;
+    transition: color 0.2s;
+  }
+  nav .links a:hover { color: var(--black); }
+
+  /* --- HERO --- */
+  .hero {
+    max-width: 1100px; margin: 0 auto; padding: 9rem 2rem 4rem;
+  }
+  .hero .tag {
+    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); font-weight: 500; margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1.2; letter-spacing: -0.02em;
+    max-width: 800px; margin-bottom: 1.5rem;
+  }
+  .hero .subtitle {
+    font-size: 1.1rem; color: var(--gray);
+    max-width: 680px; line-height: 1.8;
+  }
+
+  /* --- DIAGRAMS SECTION --- */
+  .diagrams-section {
+    max-width: 1100px; margin: 0 auto; padding: 3rem 2rem 4rem;
+  }
+  .diagrams-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    max-width: 720px;
+    margin: 0 auto;
+}
+  .diagram-card {
+    background: var(--light);
+    border-radius: 6px;
+    padding: 2rem 1.5rem 1.5rem;
+  }
+  .diagram-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    line-height: 1.35;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.01em;
+  }
+  .diagram-card .diagram-sub {
+    font-size: 0.75rem;
+    color: var(--gray);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* --- SVG STYLES --- */
+  .diagram-svg {
+    width: 100%;
+    height: auto;
+  }
+  .diagram-svg .node-rect {
+    rx: 4; ry: 4;
+  }
+  .diagram-svg .node-accent {
+    fill: var(--accent);
+  }
+  .diagram-svg .node-light {
+    fill: #e8e5e0;
+  }
+  .diagram-svg .node-white {
+    fill: var(--white);
+    stroke: var(--border);
+    stroke-width: 1.5;
+  }
+  .diagram-svg text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    fill: var(--black);
+  }
+  .diagram-svg .label-white {
+    fill: var(--white);
+    font-weight: 500;
+  }
+  .diagram-svg .label-accent {
+    fill: var(--accent);
+    font-weight: 500;
+    font-size: 10px;
+  }
+  .diagram-svg .label-gray {
+    fill: var(--gray);
+    font-size: 9.5px;
+    font-weight: 400;
+  }
+  .diagram-svg .arrow-line {
+    stroke: var(--gray);
+    stroke-width: 1.2;
+    fill: none;
+    marker-end: url(#arrowGray);
+  }
+  .diagram-svg .arrow-accent {
+    stroke: var(--accent);
+    stroke-width: 1.4;
+    fill: none;
+    marker-end: url(#arrowAccent);
+  }
+
+  /* --- ARTICLE --- */
+  .article {
+    max-width: 1100px; margin: 0 auto; padding: 3rem 2rem 5rem;
+  }
+  .article-content {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .article-content h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+  .article-content p {
+    font-size: 1rem;
+    color: var(--gray);
+    line-height: 1.85;
+    margin-bottom: 1.5rem;
+  }
+  .article-content p strong {
+    color: var(--black);
+    font-weight: 500;
+  }
+
+  /* --- FOOTER --- */
+  footer {
+    max-width: 1100px; margin: 0 auto;
+    padding: 3rem 2rem;
+    text-align: center;
+    font-size: 0.78rem; color: var(--border);
+  }
+
+  .back-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.85rem; color: var(--gray); text-decoration: none;
+    margin-bottom: 2rem; transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  /* --- FADE IN --- */
+  .fade-in {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 720px) {
+    .diagrams-grid { grid-template-columns: 1fr; }
+    .diagram-card { padding: 1.5rem 1rem; }
+    nav .links a { margin-left: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="inner">
+    <a href="index.html" class="logo">Huizhao Huang</a>
+    <div class="links">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <a href="index.html" class="back-link">&#8592; Back to Home</a>
+  <div class="tag">Investigative Reporting</div>
+  <h1 class="fade-in">Gray Lifeline: How a Seemingly Random Scam Exposed a Hidden Charity Fraud Network</h1>
+  <p class="subtitle fade-in">An investigative report tracing a single fraud case to uncover a sprawling gray market of charitable donation schemes operating beneath the surface of legitimate organizations.</p>
+</div>
+
+<!-- DIAGRAMS -->
+<div class="diagrams-section">
+  <div class="diagrams-grid">
+
+    <!-- DIAGRAM 1: Commercial Platform Traffic-Buying Model -->
+    <div class="diagram-card fade-in">
+      <h3>Commercial Platform Traffic-Buying Model</h3>
+      <div class="diagram-sub">How middlemen exploit ad platforms to funnel donations</div>
+
+      <svg class="diagram-svg" viewBox="0 0 460 420" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrowGray" viewBox="0 0 10 7" refX="9" refY="3.5" markerWidth="8" markerHeight="6" orient="auto-start-reverse">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#6b6b6b"/>
+          </marker>
+          <marker id="arrowAccent" viewBox="0 0 10 7" refX="9" refY="3.5" markerWidth="8" markerHeight="6" orient="auto-start-reverse">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#c44d2b"/>
+          </marker>
+        </defs>
+
+        <!-- Row 1: Public Foundation — Public — Commercial Platform -->
+        <rect x="10" y="20" width="120" height="38" class="node-rect node-accent"/>
+        <text x="70" y="44" text-anchor="middle" class="label-white">Public Foundation</text>
+
+        <rect x="170" y="20" width="90" height="38" class="node-rect node-white"/>
+        <text x="215" y="44" text-anchor="middle">Public</text>
+
+        <rect x="300" y="20" width="140" height="38" class="node-rect node-accent"/>
+        <text x="370" y="44" text-anchor="middle" class="label-white">Commercial Platform</text>
+
+        <!-- Arrows: Public donates to Foundation, Platform promotes to Public -->
+        <line x1="170" y1="39" x2="135" y2="39" class="arrow-line"/>
+        <text x="152" y="33" text-anchor="middle" class="label-gray">Donate</text>
+
+        <line x1="300" y1="39" x2="265" y2="39" class="arrow-line"/>
+        <text x="282" y="33" text-anchor="middle" class="label-gray">Promote</text>
+
+        <!-- Row 2: Core Middleman — Ad Agency -->
+        <rect x="80" y="130" width="120" height="46" class="node-rect node-accent" rx="23" ry="23"/>
+        <text x="140" y="149" text-anchor="middle" class="label-white" font-size="10.5">Core Middleman</text>
+        <text x="140" y="163" text-anchor="middle" class="label-white" font-size="9" opacity="0.8">&#9679;</text>
+
+        <rect x="270" y="130" width="120" height="46" class="node-rect node-accent"/>
+        <text x="330" y="158" text-anchor="middle" class="label-white">Ad Agency</text>
+
+        <!-- Arrows: Middleman → Project Registration → Foundation -->
+        <line x1="120" y1="130" x2="70" y2="63" class="arrow-accent"/>
+        <text x="68" y="100" text-anchor="middle" class="label-accent" font-size="9">Project<tspan x="68" dy="11">Registration</tspan></text>
+
+        <!-- Middleman → Ad Agency -->
+        <line x1="200" y1="153" x2="265" y2="153" class="arrow-line"/>
+
+        <!-- Ad Agency → Platform (buy traffic) -->
+        <line x1="330" y1="130" x2="370" y2="63" class="arrow-accent"/>
+        <text x="368" y="100" text-anchor="middle" class="label-accent" font-size="9">Buy Traffic</text>
+
+        <!-- Row 3: Middlemen -->
+        <rect x="60" y="240" width="90" height="34" class="node-rect node-light"/>
+        <text x="105" y="261" text-anchor="middle" font-size="10.5">Middleman</text>
+
+        <rect x="190" y="240" width="90" height="34" class="node-rect node-light"/>
+        <text x="235" y="261" text-anchor="middle" font-size="10.5">Middleman</text>
+
+        <!-- Arrow: Core Middleman → sub-middlemen (fundraise) -->
+        <line x1="120" y1="176" x2="105" y2="236" class="arrow-line"/>
+        <line x1="160" y1="176" x2="235" y2="236" class="arrow-line"/>
+        <text x="170" y="215" text-anchor="middle" class="label-gray">Fundraise</text>
+
+        <!-- Row 4: Patient Families -->
+        <rect x="20" y="340" width="95" height="34" class="node-rect node-light"/>
+        <text x="67" y="361" text-anchor="middle" font-size="10">Patient Family</text>
+
+        <rect x="130" y="340" width="95" height="34" class="node-rect node-light"/>
+        <text x="177" y="361" text-anchor="middle" font-size="10">Patient Family</text>
+
+        <rect x="240" y="340" width="95" height="34" class="node-rect node-light"/>
+        <text x="287" y="361" text-anchor="middle" font-size="10">Patient Family</text>
+
+        <rect x="350" y="340" width="95" height="34" class="node-rect node-light"/>
+        <text x="397" y="361" text-anchor="middle" font-size="10">Patient Family</text>
+
+        <!-- Arrows: Middlemen → Patient Families -->
+        <line x1="80" y1="274" x2="67" y2="336" class="arrow-line"/>
+        <line x1="105" y1="274" x2="177" y2="336" class="arrow-line"/>
+        <line x1="235" y1="274" x2="287" y2="336" class="arrow-line"/>
+        <line x1="260" y1="274" x2="397" y2="336" class="arrow-line"/>
+
+        <!-- Foundation → Aid → Patient Families (left side) -->
+        <line x1="30" y1="58" x2="30" y2="336" class="arrow-accent" stroke-dasharray="4 3"/>
+        <text x="18" y="200" class="label-accent" font-size="9" transform="rotate(-90,18,200)">Aid / Relief</text>
+
+      </svg>
+    </div>
+
+  </div>
+</div>
+
+<!-- ARTICLE CONTENT -->
+<div class="article">
+  <div class="article-content">
+    <h2 class="fade-in">The Investigation</h2>
+
+    <p class="fade-in">Imagine you're scrolling through Weibo, TikTok, or WeChat in China when a charity ad appears on your feed. A crying child, a helpless mother, a family crushed by illness and poverty. The ad tells you their only hope lies in your generosity. You click, you donate 100 yuan.</p>
+
+    <p class="fade-in">Guess how much of that 100 yuan actually reaches the people in need? <strong>Less than 10 yuan.</strong></p>
+
+    <p class="fade-in">On September 12, 2023, news broke that a volunteer named Ke Shanxiao, affiliated with the China Charities Aid Foundation for Children (CCAFC), had allegedly defrauded dozens of critically ill patients' families of over 10 million yuan under the guise of "matching donations." CCAFC sought to distance itself, calling Ke merely a "temporary volunteer." But CCAFC is one of China's largest fundraising foundations, and the victims are families of seriously ill patients. Was this really an isolated scam? What exactly is the relationship between the fraudster and the foundation? Where did the money go?</p>
+
+    <p class="fade-in">Through in-depth investigation, the report revealed a hidden chain of interests that the public never expected: much of the funds collected from patients' families under the name of "matching donations" were actually funneled into commercial advertising channels. They became the viral fundraising ads we see across Weibo, Baidu, TikTok, and WeChat Moments, the ones pleading "Save this child with leukemia" or "Help a critically ill patient survive." Those ads were not paid for by the foundations. They were paid for by the very families who needed saving.</p>
+
+    <p class="fade-in">Within this scheme, figures like Ke Shanxiao act as intermediaries: cooperating with charitable foundations on one hand, raising funds from desperate patient families on the other, sometimes even pressuring them to take out loans. Foundations like CCAFC leverage these middlemen to expand their influence and harvest impressive fundraising numbers. Commercial platforms and ad agencies profit handsomely from the steady stream of "philanthropic business." The patient families, trapped in an enormous information gap, can only gamble on a slim chance of survival for their loved ones.</p>
+
+    <p class="fade-in">The economics are revealing. <strong>For roughly every 100,000 yuan raised from patient families for ad placement, about 130,000 yuan in public donations flows back.</strong> Ad agencies and platforms claim the lion's share (100,000 yuan). The foundation, contributing nothing financially, takes a 10% "management fee" (13,000 yuan). Middlemen skim 3 to 4 percent (around 5,000 yuan). The patient families who bankrolled the entire operation recover their "principal" plus less than 10% of the donations (about 12,000 yuan).</p>
+
+    <p class="fade-in">This is not one foundation's scandal. The report pointed out that it reflects a prevalent condition across China's critical-illness charity sector. We wanted not only to expose the mechanics, but to ask harder questions: why has charity become entangled in a commercial game of traffic and profit? Why are critically ill families willing to accept such unfavorable odds? Why has Chinese philanthropy consistently failed to serve the "public interest" it claims to represent?</p>
+
+    <p class="fade-in">The report also dedicated significant space to the shrinking support channels available to critically ill families, the tangled relationships between public and private foundations under China's approval-based regulatory system, and the double-edged impact of internet platforms' traffic-allocation mechanisms on charitable work. It sparked significant reaction within China's philanthropy community, and has been recognized as the most objective and thorough investigation into the country's critical-illness charity crisis. We are also pleased to see that the report prompted a series of workshops by charity scholars and organizations to collectively explore more reasonable and transparent charity models. Reflection and change are still ongoing.</p>
+
+    <p class="fade-in">The report was shortlisted for the 2024 True Story Award. Read more at <a href="https://truestoryaward.org/story/412" target="_blank" style="color: var(--accent);">truestoryaward.org/story/412</a>.</p>
+  </div>
+</div>
+
+<footer>&copy; 2026 Huizhao Huang</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
