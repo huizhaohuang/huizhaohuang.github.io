@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hormuz crisis — commodity impact reference table</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #2C2C2A; background: #fff; padding: 2rem; }
+  h1 { font-size: 18px; font-weight: 500; margin-bottom: 1.25rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { font-size: 11px; font-weight: 500; color: #888780; text-transform: uppercase; letter-spacing: 0.3px; text-align: left; padding: 8px 10px; border-bottom: 1px solid #D3D1C7; position: sticky; top: 0; background: #fff; z-index: 1; }
+  td { padding: 10px 10px; border-bottom: 0.5px solid #F1EFE8; vertical-align: top; line-height: 1.5; }
+  tr:hover td { background: #FAFAF7; }
+  .cat-row td { background: #F1EFE8; font-weight: 500; font-size: 12px; color: #5F5E5A; text-transform: uppercase; letter-spacing: 0.4px; padding: 6px 10px; border-bottom: 0.5px solid #D3D1C7; }
+  .commodity { font-weight: 500; font-size: 14px; }
+  .sub { font-size: 12px; color: #888780; margin-top: 1px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; }
+  .b-extreme { background: #FCEBEB; color: #791F1F; }
+  .b-high { background: #FAEEDA; color: #633806; }
+  .b-medium { background: #E1F5EE; color: #085041; }
+  .b-low { background: #E6F1FB; color: #0C447C; }
+  .src { font-size: 11px; color: #888780; line-height: 1.4; }
+  .src a { color: #185FA5; text-decoration: none; }
+  .src a:hover { text-decoration: underline; }
+  .conf { font-size: 11px; }
+  .conf-h { color: #0F6E56; }
+  .conf-m { color: #BA7517; }
+  .conf-l { color: #A32D2D; }
+  .bench { font-size: 12px; }
+  .notes { margin-top: 1rem; padding: 12px; background: #F1EFE8; border-radius: 8px; font-size: 11px; color: #888780; line-height: 1.6; }
+  .notes strong { color: #5F5E5A; font-weight: 500; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #1a1a1a; color: #e0ded6; }
+    th { background: #1a1a1a; color: #888780; border-bottom-color: #444; }
+    td { border-bottom-color: #333; }
+    tr:hover td { background: #222; }
+    .cat-row td { background: #262626; color: #B4B2A9; border-bottom-color: #444; }
+    .sub { color: #888780; }
+    .b-extreme { background: #501313; color: #F09595; }
+    .b-high { background: #412402; color: #FAC775; }
+    .b-medium { background: #04342C; color: #5DCAA5; }
+    .b-low { background: #042C53; color: #85B7EB; }
+    .src { color: #888780; }
+    .src a { color: #85B7EB; }
+    .notes { background: #262626; color: #888780; }
+    .notes strong { color: #B4B2A9; }
+  }
+</style>
+</head>
+<body>
+<h1>Strait of Hormuz crisis — commodity impact reference</h1>
+
+<table>
+<thead>
+<tr>
+  <th style="min-width:120px">Commodity</th>
+  <th style="min-width:150px">Core demand sectors</th>
+  <th style="min-width:80px">Strait share</th>
+  <th style="min-width:130px">Price benchmark</th>
+  <th style="min-width:50px">Conf.</th>
+  <th style="min-width:180px">Source</th>
+</tr>
+</thead>
+<tbody>
+
+<tr class="cat-row"><td colspan="6">Energy — direct supply disruption</td></tr>
+
+<tr>
+  <td><div class="commodity">Crude oil</div></td>
+  <td>Transport, refining, power generation, industrial feedstock</td>
+  <td><span class="badge b-extreme">~20%</span></td>
+  <td class="bench">Brent (ICE) · WTI (NYMEX)<br>Daily futures</td>
+  <td class="conf conf-h">High</td>
+  <td class="src"><a href="https://www.iea.org/about/oil-security-and-emergency-response/strait-of-hormuz">IEA Strait page</a>: 25% of seaborne crude trade. <a href="https://www.iea.org/reports/sheltering-from-oil-shocks/summary">IEA Sheltering report</a>: ~20% of global consumption.</td>
+</tr>
+
+<tr>
+  <td><div class="commodity">Refined products</div><div class="sub">Diesel, jet fuel, fuel oil</div></td>
+  <td>Trucking, aviation, shipping, agriculture machinery</td>
+  <td><span class="badge b-extreme">~17%</span></td>
+  <td class="bench">ULSD (NYMEX) · Gasoil (ICE)<br>Daily futures</td>
+  <td class="conf conf-h">High</td>
+  <td class="src"><a href="https://iea.blob.core.windows.net/assets/a25ddf53-cd6c-4910-ac90-16bfd28399e7/-12MAR2026_OilMarketReport.pdf">IEA OMR Mar 2026</a>: 5 mb/d products through Strait; breakout: diesel 0.73, jet 0.38, naphtha 1.2, LPG 1.5, fuel oil 0.42 mb/d.</td>
+</tr>
+
+<tr>
+  <td><div class="commodity">LNG</div><div class="sub">Liquefied natural gas</div></td>
+  <td>Power generation, heating, industrial gas, chemical feedstock</td>
+  <td><span class="badge b-extreme">~20%</span></td>
+  <td class="bench">JKM (Platts, monthly on FRED)<br>TTF (ICE) · Henry Hub (EIA)</td>
+  <td class="conf conf-h">High</td>
+  <td class="src"><a href="https://www.iea.org/about/oil-security-and-emergency-response/strait-of-hormuz">IEA</a>: 112 bcm via Strait in 2025 = ~20% of global LNG trade. Qatar + UAE only routes.</td>
+</tr>
+
+<tr>
+  <td><div class="commodity">LPG</div><div class="sub">Liquefied petroleum gas</div></td>
+  <td>Household cooking, petrochemical cracking, vehicle fuel</td>
+  <td><span class="badge b-extreme">~30%</span></td>
+  <td class="bench">Saudi Aramco CP (monthly)<br>No public daily index</td>
+  <td class="conf conf-m">Med</td>
+  <td class="src"><a href="https://procurementmag.com/news/strait-of-hormuz-closure-supply-chain-impact">Drewry / Procurement Mag</a>: ME ~30% of seaborne LPG. <a href="https://oilprice.com/Energy/Energy-General/The-Critical-Commodities-Caught-in-the-Hormuz-Blockade.html">IEA OMR</a>: LPG most affected refined product.</td>
+</tr>
+
+<tr class="cat-row"><td colspan="6">Petrochemical feedstocks — industrial chain</td></tr>
+
+<tr>
+  <td><div class="commodity">Naphtha</div></td>
+  <td>Ethylene cracking, plastics, synthetic fiber feedstock</td>
+  <td><span class="badge b-high">~24%</span></td>
+  <td class="bench">NWE Naphtha (CFD, daily)<br>Japan Open Spec (Platts)</td>
+  <td class="conf conf-h">High</td>
+  <td class="src"><a href="https://www.atlanticcouncil.org/blogs/energysource/the-strait-of-hormuz-crisis-will-ripple-across-plastics-and-food-supply-chains-helping-beijing-and-moscow-hurting-americans/">Atlantic Council</a> citing Drewry analyst: prolonged closure cuts 24% of seaborne naphtha.</td>
+</tr>
+
+<tr>
+  <td><div class="commodity">Methanol</div></td>
+  <td>Formaldehyde, acetic acid, MTO olefins production</td>
+  <td><span class="badge b-high">~18%</span></td>
+  <td class="bench">CFR China Methanol (Platts)<br>Zhengzhou futures (domestic)</td>
+  <td class="conf conf-l">Low</td>
+  <td class="src"><a href="https://www.lseg.com/en/insights/all-eyes-on-hormuz">LSEG</a>: ME and Iran are key global methanol suppliers. ~18% estimated from Iran export share; no single authoritative figure.</td>
+</tr>
+
+<tr>
+  <td><div class="commodity">MEG</div><div class="sub">Monoethylene glycol</div></td>
+  <td>Polyester fiber, PET packaging, antifreeze</td>
+  <td><span class="badge b-high">~17%</span></td>
+  <td class="bench">CFR China MEG (Platts)<br>No widely tracked public index</td>
+  <td class="conf conf-l">Low</td>
+  <td class="src"><a href="https://www.weforum.org/stories/2026/04/beyond-oil-lng-commodities-impacted-closure-hormuz-strait/">WEF</a>: ~6.5 mt shipped from Gulf in 2025. ~17% estimated as share of global consumption.</td>
+</tr>
+
+<tr>
+  <td><div class="commodity">PE / PP</div><div class="sub">Polyethylene, polypropylene</div></td>
+  <td>Film, packaging, pipes, automotive parts</td>
+  <td><span class="badge b-extreme">~40%</span></td>
+  <td class="bench">HDPE / LLDPE / PP (ICIS, Platts)<br>Subscription only</td>
+  <td class="conf conf-m">Med</td>
+  <td class="src"><a href="https://dailycaller.com/2026/04/02/opinion-strait-of-hormuz-closure-impacts-much-more-than-just-oil-david-blackmon/">Blackmon / IJR</a>: ME supplies ~40% of polyethylene seaborne exports. <a href="https://iea.blob.core.windows.net/assets/a25ddf53-cd6c-4910-ac90-16bfd28399e7/-12MAR2026_OilMarketReport.pdf">IEA OMR</a>: 4+ mb/d oil-eq petrochemical flows.</td>
+</tr>
+
+<tr class="cat-row"><td colspan="6">Agriculture and food security</td></tr>
+
+<tr>
+  <td><div class="commodity">Urea / N-fertilizer</div></td>
+  <td>Crop cultivation (spring planting seasonal demand)</td>
+  <td><span class="badge b-extreme">~30%</span></td>
+  <td class="bench">NOLA Urea (weekly spot)<br>ME Granular Urea (weekly)</td>
+  <td class="conf conf-h">High</td>
+  <td class="src"><a href="https://en.wikipedia.org/wiki/2026_Strait_of_Hormuz_crisis">Wikipedia / UN</a>: 30% of traded fertilizer transits Strait. <a href="https://www.weforum.org/stories/2026/04/beyond-oil-lng-commodities-impacted-closure-hormuz-strait/">WEF</a>: Gulf = 46% of global urea trade.</td>
+</tr>
+
+<tr>
+  <td><div class="commodity">Sulfur</div></td>
+  <td>Phosphate fertilizer production, rubber vulcanization, refining</td>
+  <td><span class="badge b-extreme">~50%</span></td>
+  <td class="bench">Tampa CFR (quarterly contract)<br>No public daily index</td>
+  <td class="conf conf-h">High</td>
+  <td class="src"><a href="https://oilprice.com/Energy/Energy-General/The-Critical-Commodities-Caught-in-the-Hormuz-Blockade.html">OilPrice / RFE/RL</a>: 50% of seaborne sulfur via Strait. <a href="https://www.weforum.org/stories/2026/04/beyond-oil-lng-commodities-impacted-closure-hormuz-strait/">WEF</a>: Gulf is global sulfur price-setter.</td>
+</tr>
+
+<tr class="cat-row"><td colspan="6">Industrial and strategic materials</td></tr>
+
+<tr>
+  <td><div class="commodity">Helium</div></td>
+  <td>Semiconductor fab, MRI imaging, fiber optics, EUV lithography</td>
+  <td><span class="badge b-extreme">~33%</span></td>
+  <td class="bench">No futures market<br>Spot quotes via gasworld, IMARC (subscription)</td>
+  <td class="conf conf-l">Low</td>
+  <td class="src"><a href="https://www.weforum.org/stories/2026/04/beyond-oil-lng-commodities-impacted-closure-hormuz-strait/">WEF</a>: Qatar = ~1/3 of global helium. <a href="https://dailycaller.com/2026/04/02/opinion-strait-of-hormuz-closure-impacts-much-more-than-just-oil-david-blackmon/">Blackmon</a>: 30-35%; Ras Laffan offline 3-5 yrs. <a href="https://www.cnbc.com/2026/03/31/commodities-price-of-tungsten-sulfur-and-helium.html">CNBC</a>: no transparent pricing.</td>
+</tr>
+
+<tr>
+  <td><div class="commodity">Aluminum</div></td>
+  <td>Automotive, aerospace, packaging, construction</td>
+  <td><span class="badge b-medium">~10%</span></td>
+  <td class="bench">LME Aluminum (daily)<br>Transparent, liquid market</td>
+  <td class="conf conf-h">High</td>
+  <td class="src"><a href="https://english.shabtabnews.com/2026/04/02/how-irans-hormuz-blockade-chokes-global-trade-beyond-oil-and-gas/">RFE/RL / Argus</a>: Gulf = ~10% of global supply, &gt;80% exported. Prices up 11% since Feb 28.</td>
+</tr>
+
+</tbody>
+</table>
+
+<div class="notes">
+<strong>Notes</strong><br>
+"Strait share" = percentage of global seaborne trade in that commodity transiting the Strait of Hormuz. Severity bands:
+<span class="badge b-extreme" style="font-size:10px">Extreme &gt;25%</span>
+<span class="badge b-high" style="font-size:10px">High 15–25%</span>
+<span class="badge b-medium" style="font-size:10px">Medium 8–15%</span>
+<span class="badge b-low" style="font-size:10px">Moderate &lt;8%</span>.
+"Conf." = confidence in the quoted percentage: High = directly stated by IEA, UN, or equivalent authority; Med = derived from multiple consistent sources; Low = estimated from partial data or industry reports.
+Methanol and MEG percentages carry the lowest confidence and should be cited as estimates.
+All source links are clickable. Data as of early April 2026.
+</div>
+
+</body>
+</html>

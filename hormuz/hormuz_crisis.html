@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hormuz Energy Crisis — A Panoramic View</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #1a1a1a;
+    --gray: #6b6b6b;
+    --light: #f5f4f0;
+    --accent: #c44d2b;
+    --white: #ffffff;
+    --border: #e0ddd8;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    color: var(--black);
+    background: var(--white);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem; letter-spacing: -0.02em;
+    color: var(--black); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    font-size: 0.85rem; color: var(--gray);
+    font-weight: 400; letter-spacing: 0.03em;
+    text-decoration: none; transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--black); }
+
+  /* ── ARTICLE CONTAINER ── */
+  .article {
+    max-width: 780px; margin: 0 auto;
+    padding: 8rem 2rem 4rem;
+  }
+
+  /* ── HERO ── */
+  .hero-label {
+    font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--accent);
+    font-weight: 500; margin-bottom: 1rem;
+  }
+  .article h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.6rem; line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+  .hero-desc {
+    font-size: 1.05rem; color: var(--gray);
+    line-height: 1.8; margin-bottom: 1.5rem;
+  }
+  .hero-meta {
+    font-size: 0.8rem; color: var(--gray);
+    margin-bottom: 3rem; padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-meta span { margin-right: 1.8rem; }
+
+  /* ── ARTICLE TYPOGRAPHY ── */
+  .article h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.7rem; line-height: 1.3;
+    margin: 3rem 0 1rem;
+  }
+  .article h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem; line-height: 1.35;
+    margin: 2.5rem 0 0.8rem;
+  }
+  .article p {
+    font-size: 0.95rem; line-height: 1.8;
+    margin-bottom: 1.2rem; color: var(--black);
+  }
+
+  /* ── WIDE ELEMENTS (table, charts) break out of article width ── */
+  .wide {
+    width: 100vw;
+    max-width: 1100px;
+    margin-left: calc(50% - min(550px, 50vw));
+    padding: 0 2rem;
+  }
+
+  /* ── CHART EMBEDS ── */
+  .chart-block { margin: 2rem 0 2.5rem; }
+  .chart-caption {
+    font-size: 0.78rem; color: var(--gray);
+    margin-top: 0.5rem; line-height: 1.5;
+    font-style: italic;
+  }
+  .chart-frame {
+    width: 100%; border: 1px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+    background: var(--white);
+  }
+
+  /* ── COMMODITY TABLE ── */
+  .table-wrap { overflow-x: auto; }
+  .commodity-table {
+    width: 100%; border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+  .commodity-table thead th {
+    font-size: 0.68rem; font-weight: 500;
+    color: var(--gray); text-transform: uppercase;
+    letter-spacing: 0.12em; text-align: left;
+    padding: 0.7rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; background: var(--white); z-index: 1;
+  }
+  .commodity-table td {
+    padding: 0.75rem 0.75rem;
+    border-bottom: 1px solid #f0eeea;
+    vertical-align: top; line-height: 1.6;
+  }
+  .commodity-table tr:hover td { background: var(--light); }
+  .cat-row td {
+    background: var(--light); font-weight: 500;
+    font-size: 0.72rem; color: var(--gray);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .c-name { font-weight: 500; font-size: 0.88rem; color: var(--black); }
+  .c-sub { font-size: 0.75rem; color: var(--gray); margin-top: 1px; }
+  .badge {
+    display: inline-block; padding: 2px 8px;
+    border-radius: 4px; font-size: 0.72rem; font-weight: 500;
+  }
+  .b-extreme { background: #fce8e4; color: #a02e12; }
+  .b-high    { background: #faeeda; color: #633806; }
+  .b-medium  { background: #e1f5ee; color: #085041; }
+  .b-low     { background: #e6f1fb; color: #0c447c; }
+  .bench { font-size: 0.75rem; color: var(--black); }
+  .conf { font-size: 0.72rem; }
+  .conf-h { color: #0f6e56; }
+  .conf-m { color: #ba7517; }
+  .conf-l { color: #a32d2d; }
+  .src { font-size: 0.68rem; color: var(--gray); line-height: 1.5; }
+  .src a { color: var(--accent); text-decoration: none; }
+  .src a:hover { text-decoration: underline; }
+  .table-notes {
+    margin-top: 1.2rem; padding: 1rem 1.2rem;
+    background: var(--light); border-radius: 6px;
+    font-size: 0.72rem; color: var(--gray); line-height: 1.7;
+  }
+  .table-notes strong { color: var(--black); font-weight: 500; }
+
+  /* ── SECTION DIVIDER ── */
+  .section-break {
+    border: none; border-top: 1px solid var(--border);
+    margin: 3rem 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    max-width: 1100px; margin: 0 auto;
+    padding: 3rem 2rem;
+    font-size: 0.78rem; color: var(--border);
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between;
+  }
+
+  /* ── FADE-IN ── */
+  .fade-in {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 720px) {
+    .article { padding: 7rem 1.2rem 3rem; }
+    .article h1 { font-size: 2rem; }
+    .article h2 { font-size: 1.4rem; }
+    .nav-inner { padding: 1rem 1.2rem; }
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: 0.78rem; }
+    .wide { padding: 0 1.2rem; }
+    .hero-meta { display: flex; flex-direction: column; gap: 0.3rem; }
+    .hero-meta span { margin-right: 0; }
+    footer { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════ NAV ════════════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Huizhao Huang</a>
+    <div class="nav-links">
+      <a href="/#work">Work</a>
+      <a href="/#about">About</a>
+      <a href="/#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════════ ARTICLE ════════════ -->
+<article class="article">
+
+  <!-- HERO -->
+  <div class="fade-in">
+    <div class="hero-label">Research Project</div>
+    <h1>Hormuz Energy Crisis —<br>A Panoramic View</h1>
+    <p class="hero-desc">
+      When Iran declared the Strait of Hormuz closed on March 4, 2026, it severed the world's most critical energy chokepoint.
+      This analysis maps the full scope of impact — from the commodities directly disrupted, to the price shocks rippling through
+      global markets, to the countries most vulnerable and the alternative routes being tested under pressure.
+    </p>
+    
+  </div>
+
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- COMMODITY TABLE — PANORAMIC OVERVIEW    -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="fade-in">
+    <h2>The full spectrum of exposure</h2>
+    <p>The Strait of Hormuz carries far more than crude oil. From LNG and petrochemical feedstocks to fertilizer and helium, the closure threatens supply chains that most analyses overlook. The table below maps every major commodity transiting the Strait, its share of global seaborne trade, and the confidence level behind each estimate.</p>
+  </div>
+
+  <div class="wide fade-in">
+    <div class="table-wrap">
+      <table class="commodity-table">
+        <thead>
+          <tr>
+            <th style="min-width:120px">Commodity</th>
+            <th style="min-width:140px">Core demand sectors</th>
+            <th style="min-width:75px">Strait share</th>
+            <th style="min-width:120px">Price benchmark</th>
+            <th style="min-width:45px">Conf.</th>
+            <th style="min-width:170px">Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="cat-row"><td colspan="6">Energy — direct supply disruption</td></tr>
+          <tr>
+            <td><div class="c-name">Crude oil</div></td>
+            <td>Transport, refining, power generation, industrial feedstock</td>
+            <td><span class="badge b-extreme">~20%</span></td>
+            <td class="bench">Brent (ICE) · WTI (NYMEX)<br>Daily futures</td>
+            <td class="conf conf-h">High</td>
+            <td class="src"><a href="https://www.iea.org/about/oil-security-and-emergency-response/strait-of-hormuz">IEA</a>: 25% of seaborne crude trade. <a href="https://www.iea.org/reports/sheltering-from-oil-shocks/summary">IEA Sheltering report</a>: ~20% of global consumption.</td>
+          </tr>
+          <tr>
+            <td><div class="c-name">Refined products</div><div class="c-sub">Diesel, jet fuel, fuel oil</div></td>
+            <td>Trucking, aviation, shipping, agriculture machinery</td>
+            <td><span class="badge b-extreme">~17%</span></td>
+            <td class="bench">ULSD (NYMEX) · Gasoil (ICE)<br>Daily futures</td>
+            <td class="conf conf-h">High</td>
+            <td class="src"><a href="https://iea.blob.core.windows.net/assets/a25ddf53-cd6c-4910-ac90-16bfd28399e7/-12MAR2026_OilMarketReport.pdf">IEA OMR Mar 2026</a>: 5 mb/d products through Strait.</td>
+          </tr>
+          <tr>
+            <td><div class="c-name">LNG</div><div class="c-sub">Liquefied natural gas</div></td>
+            <td>Power generation, heating, industrial gas, chemical feedstock</td>
+            <td><span class="badge b-extreme">~20%</span></td>
+            <td class="bench">JKM (Platts) · TTF (ICE)<br>Henry Hub (EIA)</td>
+            <td class="conf conf-h">High</td>
+            <td class="src"><a href="https://www.iea.org/about/oil-security-and-emergency-response/strait-of-hormuz">IEA</a>: 112 bcm via Strait in 2025 = ~20% of global LNG trade.</td>
+          </tr>
+          <tr>
+            <td><div class="c-name">LPG</div><div class="c-sub">Liquefied petroleum gas</div></td>
+            <td>Household cooking, petrochemical cracking, vehicle fuel</td>
+            <td><span class="badge b-extreme">~30%</span></td>
+            <td class="bench">Saudi Aramco CP (monthly)<br>No public daily index</td>
+            <td class="conf conf-m">Med</td>
+            <td class="src"><a href="https://procurementmag.com/news/strait-of-hormuz-closure-supply-chain-impact">Drewry</a>: ME ~30% of seaborne LPG. <a href="https://oilprice.com/Energy/Energy-General/The-Critical-Commodities-Caught-in-the-Hormuz-Blockade.html">IEA OMR</a>: LPG most affected refined product.</td>
+          </tr>
+          <tr class="cat-row"><td colspan="6">Petrochemical feedstocks — industrial chain</td></tr>
+          <tr>
+            <td><div class="c-name">Naphtha</div></td>
+            <td>Ethylene cracking, plastics, synthetic fiber feedstock</td>
+            <td><span class="badge b-high">~24%</span></td>
+            <td class="bench">NWE Naphtha (CFD, daily)<br>Japan Open Spec (Platts)</td>
+            <td class="conf conf-h">High</td>
+            <td class="src"><a href="https://www.atlanticcouncil.org/blogs/energysource/the-strait-of-hormuz-crisis-will-ripple-across-plastics-and-food-supply-chains-helping-beijing-and-moscow-hurting-americans/">Atlantic Council</a>: prolonged closure cuts 24% of seaborne naphtha.</td>
+          </tr>
+          <tr>
+            <td><div class="c-name">Methanol</div></td>
+            <td>Formaldehyde, acetic acid, MTO olefins production</td>
+            <td><span class="badge b-high">~18%</span></td>
+            <td class="bench">CFR China Methanol (Platts)<br>Zhengzhou futures</td>
+            <td class="conf conf-l">Low</td>
+            <td class="src"><a href="https://www.lseg.com/en/insights/all-eyes-on-hormuz">LSEG</a>: ME and Iran are key global methanol suppliers. ~18% est. from Iran export share.</td>
+          </tr>
+          <tr>
+            <td><div class="c-name">MEG</div><div class="c-sub">Monoethylene glycol</div></td>
+            <td>Polyester fiber, PET packaging, antifreeze</td>
+            <td><span class="badge b-high">~17%</span></td>
+            <td class="bench">CFR China MEG (Platts)<br>No public daily index</td>
+            <td class="conf conf-l">Low</td>
+            <td class="src"><a href="https://www.weforum.org/stories/2026/04/beyond-oil-lng-commodities-impacted-closure-hormuz-strait/">WEF</a>: ~6.5 mt shipped from Gulf in 2025. ~17% of global consumption est.</td>
+          </tr>
+          <tr>
+            <td><div class="c-name">PE / PP</div><div class="c-sub">Polyethylene, polypropylene</div></td>
+            <td>Film, packaging, pipes, automotive parts</td>
+            <td><span class="badge b-extreme">~40%</span></td>
+            <td class="bench">HDPE / LLDPE / PP (ICIS)<br>Subscription only</td>
+            <td class="conf conf-m">Med</td>
+            <td class="src"><a href="https://dailycaller.com/2026/04/02/opinion-strait-of-hormuz-closure-impacts-much-more-than-just-oil-david-blackmon/">Blackmon / IJR</a>: ME supplies ~40% of polyethylene seaborne exports.</td>
+          </tr>
+          <tr class="cat-row"><td colspan="6">Agriculture and food security</td></tr>
+          <tr>
+            <td><div class="c-name">Urea / N-fertilizer</div></td>
+            <td>Crop cultivation (spring planting seasonal demand)</td>
+            <td><span class="badge b-extreme">~30%</span></td>
+            <td class="bench">NOLA Urea (weekly spot)<br>ME Granular Urea (weekly)</td>
+            <td class="conf conf-h">High</td>
+            <td class="src"><a href="https://en.wikipedia.org/wiki/2026_Strait_of_Hormuz_crisis">Wikipedia / UN</a>: 30% of traded fertilizer transits Strait. <a href="https://www.weforum.org/stories/2026/04/beyond-oil-lng-commodities-impacted-closure-hormuz-strait/">WEF</a>: Gulf = 46% of global urea trade.</td>
+          </tr>
+          <tr>
+            <td><div class="c-name">Sulfur</div></td>
+            <td>Phosphate fertilizer production, rubber vulcanization, refining</td>
+            <td><span class="badge b-extreme">~50%</span></td>
+            <td class="bench">Tampa CFR (quarterly)<br>No public daily index</td>
+            <td class="conf conf-h">High</td>
+            <td class="src"><a href="https://oilprice.com/Energy/Energy-General/The-Critical-Commodities-Caught-in-the-Hormuz-Blockade.html">OilPrice</a>: 50% of seaborne sulfur via Strait. <a href="https://www.weforum.org/stories/2026/04/beyond-oil-lng-commodities-impacted-closure-hormuz-strait/">WEF</a>: Gulf is global sulfur price-setter.</td>
+          </tr>
+          <tr class="cat-row"><td colspan="6">Industrial and strategic materials</td></tr>
+          <tr>
+            <td><div class="c-name">Helium</div></td>
+            <td>Semiconductor fab, MRI imaging, fiber optics, EUV lithography</td>
+            <td><span class="badge b-extreme">~33%</span></td>
+            <td class="bench">No futures market<br>Spot quotes (subscription)</td>
+            <td class="conf conf-l">Low</td>
+            <td class="src"><a href="https://www.weforum.org/stories/2026/04/beyond-oil-lng-commodities-impacted-closure-hormuz-strait/">WEF</a>: Qatar = ~1/3 of global helium. <a href="https://www.cnbc.com/2026/03/31/commodities-price-of-tungsten-sulfur-and-helium.html">CNBC</a>: no transparent pricing.</td>
+          </tr>
+          <tr>
+            <td><div class="c-name">Aluminum</div></td>
+            <td>Automotive, aerospace, packaging, construction</td>
+            <td><span class="badge b-medium">~10%</span></td>
+            <td class="bench">LME Aluminum (daily)<br>Transparent, liquid market</td>
+            <td class="conf conf-h">High</td>
+            <td class="src"><a href="https://english.shabtabnews.com/2026/04/02/how-irans-hormuz-blockade-chokes-global-trade-beyond-oil-and-gas/">RFE/RL</a>: Gulf = ~10% of global supply, &gt;80% exported. Prices up 11% since Feb 28.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-notes">
+      <strong>Reading notes</strong>&ensp;·&ensp;
+      "Strait share" = percentage of global seaborne trade transiting the Strait of Hormuz.
+      Severity: <span class="badge b-extreme" style="font-size:0.65rem">Extreme &gt;25%</span>
+      <span class="badge b-high" style="font-size:0.65rem">High 15–25%</span>
+      <span class="badge b-medium" style="font-size:0.65rem">Medium 8–15%</span>
+      <span class="badge b-low" style="font-size:0.65rem">Moderate &lt;8%</span>.
+      "Conf." = confidence level. Methanol and MEG carry lowest confidence. Data as of early April 2026.
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- TRADE FLOW MAP                          -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="fade-in">
+    <hr class="section-break">
+    <h2>Where the flows are breaking</h2>
+    <p>Over 80% of crude oil and LNG shipped through the Strait was bound for Asia, with nearly 70% destined for India, Japan, China, and South Korea alone. The map below traces the major trade routes that have been severed and the alternatives now being activated under pressure.</p>
+  </div>
+
+  <div class="wide fade-in">
+    <div class="chart-block">
+      <iframe class="chart-frame" src="output/2b_trade_flows.html" style="height:520px;" frameborder="0" loading="lazy"></iframe>
+      <p class="chart-caption">Red = disrupted Strait-dependent flows. Green dashed = alternative routes activated or under negotiation. Source: IEA, EIA, author analysis.</p>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- LPG — THE MOST ACUTELY FELT SHORTAGE   -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="fade-in">
+    <hr class="section-break">
+    <h2>LPG: the most acutely felt shortage</h2>
+
+    <p>According to the IEA's latest monthly report, LPG is the refined product most affected by the Hormuz blockade, with the Middle East accounting for roughly 30% of global seaborne LPG exports.</p>
+
+    <p>Asia bears the brunt. India is the most exposed: approximately 90% of its LPG imports come from the Middle East, and the shortage has forced hundreds of millions of people to revert to coal, firewood, and cow dung for cooking. India's oil ministry ordered refineries on March 8 to maximise LPG production for household consumption, raising domestic output by roughly 25%, while rationing commercial supplies to essential sectors including healthcare and education.</p>
+
+    <p>China, the second-largest importer of LPG via the Strait, saw domestic LPG prices hit a 12-year high as of April 1. Argus analysis considers China "vulnerable" to the global LPG crunch despite some insulation from its domestic coal-based chemical industry.</p>
+
+    <p>Japan and South Korea source over 90% and 70% of their crude oil from the Middle East respectively. Japan has authorised a phased release of its strategic oil reserves — among the world's largest at roughly 170 days of cover — to stabilise domestic prices, while Tokyo Electric Power Company has warned of potential rolling blackouts. In South Korea, refiners are paying record charter rates: GS Caltex reportedly paid $440,000/day for a VLCC from Saudi Arabia's Yanbu port, while S-Oil secured an emergency charter at $555,000/day, among the highest on record. Seven Korean-flagged oil tankers remain stranded near the Strait.</p>
+
+    <p>Across Southeast Asia, governments are revisiting COVID-era austerity measures. The Philippines has declared a national energy emergency. Pakistan announced a four-day workweek for public offices and a two-week closure of schools and universities. Bangladesh brought forward university holidays. Thailand ordered civil servants to work from home and take the stairs instead of the elevator. Indonesia is considering hybrid schooling and a one-day-per-week remote working model from April. Vietnam has urged workplaces to adopt remote working.</p>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- PRICE CHART                             -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="wide fade-in">
+    <div class="chart-block">
+      <iframe class="chart-frame" src="output/1_price_index.html" style="height:560px;" frameborder="0" loading="lazy"></iframe>
+      <p class="chart-caption">All benchmarks rebased to 100 at January 2, 2026. Vertical markers trace key geopolitical events. Hover for raw prices. Source: EIA, FRED.</p>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- HELIUM & SEMICONDUCTOR SUPPLY CHAIN     -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="fade-in">
+    <h2>Helium: the longest-lasting disruption</h2>
+
+    <p>Roughly 30–35% of global helium supply comes from the Persian Gulf, almost entirely produced at Qatar's Ras Laffan LNG complex. Iranian missile and drone strikes knocked the facility offline on March 2, and Qatar has indicated that restarting production will take three to five years.</p>
+
+    <h3>A three-pronged assault on semiconductors</h3>
+
+    <p>First, helium: South Korea imported nearly 65% of its helium from Qatar in 2025, and its industry ministry has identified 14 semiconductor supply chain materials facing severe exposure from the conflict. Samsung and SK Hynix, which together control roughly 70% of the global DRAM market and 80% of high-bandwidth memory production, began rationing helium within days. Every wafer start that does not happen now becomes a chip that does not exist in Q3 2026. South Korea also sources 90% of its bromine — used in circuit board formation — from Israel, a direct party to the conflict.</p>
+
+    <p>Second, energy: the Middle East supplies 37% of the fuel powering Taiwan's electric grid, which runs predominantly on LNG. TSMC, which manufactures roughly 90% of the world's most advanced semiconductors, is on track to consume 12.5% of the island's entire electricity output. Taiwan reportedly holds only 11 days of LNG storage.</p>
+
+    <p>Third, naphtha: South Korea imports about 45% of its naphtha, with roughly 77% historically arriving from the Middle East. Petrochemical firms including Lotte Chemical, LG Chem, and Hanwha Solutions have issued force majeure notices, while Yeochun NCC, Korea's largest ethylene producer, has declared supply disruption. In Japan, naphtha inventories are depleting rapidly — Coface estimates 60–70% of Asian naphtha flows through Hormuz — forcing producers to cut output.</p>
+
+    <p>Bloomberg Economics notes that helium shortages could force chipmakers to prioritise production of higher-margin AI chips over consumer components. TSMC is accelerating its "Arizona strategy" with unprecedented speed, pushing to install manufacturing tools in its second US fab by late 2026, aiming for 3nm mass production by 2027. Carnegie Endowment argues that this crisis has revealed a new strategic chokepoint: the world's most important memory-chip producers depend on energy supplies that transit some of the most geopolitically volatile waterways on Earth.</p>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SULFUR AND FERTILIZER                   -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="fade-in">
+    <hr class="section-break">
+    <h2>Sulfur and fertilizer: the underestimated crisis</h2>
+
+    <p>Roughly 50% of global seaborne sulfur trade passes through the Strait of Hormuz. Sulfur is a byproduct of oil and gas refining and a core input for phosphate fertilizer production — meaning that when Gulf hydrocarbon production shuts down, sulfur supply suffers a double disruption: it can neither be produced nor shipped.</p>
+
+    <p>The Gulf accounts for 46% of global urea trade, and approximately one-third of all internationally traded fertilizer transits the Strait.</p>
+
+    <p>But the disruption extends well beyond blocked shipping lanes. As Carnegie Endowment analysis highlights, this is where second-order effects emerge: fertilizer producers outside the Gulf also lack key ingredients. Unable to secure natural gas from Qatar, fertilizer plants in India, Bangladesh, and Pakistan have been forced to curtail or halt production. Egypt, another major fertilizer producer, has lost natural gas imports from Israel and been forced onto the surging LNG spot market. Urea benchmark prices have risen roughly 50% — from $482.5/ton before the war to $720/ton by mid-March. Fitch Ratings has raised its 2026 ammonia and urea price expectations by approximately 25%.</p>
+
+    <p>The International Rescue Committee warns of a "food security timebomb": critical planting decisions in East Africa and South Asia must be made within four to six weeks, and fertilizer not applied during this window cannot be replaced later in the season. The IRC argues this crisis could pose an exponentially greater threat to global food security than the 2022 Ukraine shock, because unlike Ukraine — which primarily disrupted one commodity (wheat) through a single corridor — the Hormuz closure simultaneously constrains fuel, fertilizer, LNG, and cooking gas.</p>
+
+    <p>The most exposed countries are those with the thinnest buffers. Sudan imports over half its fertilizer from the Gulf. Kenya sources 40% of its fertilizer and 90% of its wheat from the same region, and serves as a re-export hub for Ethiopia, South Sudan, and Uganda. Windward maritime data shows 86% of fertilizer ships from the Persian Gulf to East Africa have ceased operations. The FAO's chief economist warns that if the disruption persists beyond three months, risks escalate significantly, affecting global planting decisions for 2026 and beyond. Unlike oil, there are no internationally coordinated strategic fertilizer reserves.</p>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- VULNERABILITY HEATMAP                   -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="fade-in">
+    <hr class="section-break">
+    <h2>Who is most exposed?</h2>
+    <p>Not every country faces the same risk profile. The heatmap below scores ten economies across eight commodity categories, using data from the IEA, Atlantic Council, and country-level import structures. Hover over any cell for the sourced rationale behind each score.</p>
+  </div>
+
+  <div class="wide fade-in">
+    <div class="chart-block">
+      <iframe class="chart-frame" src="output/2a_vulnerability_matrix.html" style="height:500px;" frameborder="0" loading="lazy"></iframe>
+      <p class="chart-caption">Scores from 0 (minimal exposure) to 10 (critical dependency). Hover for source details. Source: IEA, Atlantic Council, CF40, national statistics.</p>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- CHINA                                   -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="fade-in">
+    <h2>China: buffered but not immune</h2>
+
+    <p>China's exposure is substantial but structurally different from its Asian peers. According to the Oxford Institute for Energy Studies, one-third of China's LNG consumption transits the Strait of Hormuz. On the crude side, China's General Administration of Customs data shows 42% of crude imports come from Gulf states (Saudi Arabia 14%, Iraq 11%, UAE 7%, Oman 6%, Kuwait 3%, Qatar 1%), while analytics firm Kpler estimates an additional 12% comes from Iran under relabelled shipments — meaning roughly 54% of China's crude imports are exposed to this crisis.</p>
+
+    <p>China, however, holds three structural buffers: overland pipelines from Russia (ESPO, Power of Siberia) and Central Asia (Kazakhstan-China, Turkmenistan-China); a diversified naval relationship with Iran, which on March 26 formally allowed Chinese-flagged vessels to transit the Strait; and a coal-based domestic chemical industry (notably PVC, methanol) that does not depend on imported oil or naphtha as feedstock.</p>
+
+    <p>The critical variable is duration. The OIES scenario analysis models three outcomes: a short shutdown of three months has limited market impact, with global LNG export capacity still rising in 2026 and prices likely falling back to levels only slightly above pre-war forwards; a shutdown extending through summer could push TTF prices above $25/MMBtu, triggering demand destruction in India and eventually China; a full-year closure would be far worse, with TTF averaging above $40/MMBtu, severe demand destruction across Asia, and European gas storage struggling to refill before winter.</p>
+
+    <p>The CF40 report characterises China's primary risk as an external demand shock — a global slowdown driven by energy-price-induced stagflation — rather than a direct supply rupture.</p>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- EUROPE                                  -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="fade-in">
+    <h2>Europe: low direct dependence, high indirect exposure</h2>
+
+    <p>Europe's direct reliance on Hormuz-transiting energy is modest: only 8% of the EU's LNG was imported from Qatar before the war, and the bloc has diversified significantly since the 2022 Russia-Ukraine energy crisis, with the United States now its largest gas supplier and Norway a major pipeline source.</p>
+
+    <p>Yet indirect exposure is acute. The EU estimates gas prices have risen 70% and oil by 50% since the crisis began, adding an extra €13 billion to the bloc's fossil fuel import bill. The mechanism is competitive displacement: as Asian buyers bid up global LNG prices, cargoes originally destined for Europe are diverted. Bruegel reports that since the start of the war, several LNG cargoes have already been diverted from Europe to Asia — reprising the dynamics of the 2022 energy crisis. The IMF identifies energy as the primary transmission channel, singling out Italy and the United Kingdom as especially exposed due to their reliance on gas-fired power, while France and Spain are relatively protected by larger nuclear and renewable shares.</p>
+
+    <p>European governments are responding with a mix of supply diversification and demand management. Italy is seeking increased gas from Algeria. Belgium's Fluxys is exploring alternative LNG from the US and Nigeria. Slovenia has introduced fuel rationing. Austria has cut fuel taxes and imposed limits on retailer profit margins. EU finance ministers are considering broader measures including oil price caps and windfall taxes on energy companies.</p>
+  </div>
+
+</article>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer>
+  <span>&copy; 2026 Huizhao Huang</span>
+  <span>Data sourced from IEA, EIA, FRED, Atlantic Council, WEF, LSEG, and others as cited.</span>
+</footer>
+
+<!-- ════════════ FADE-IN OBSERVER ════════════ -->
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
